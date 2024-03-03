@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+if head -1 "$1" | grep -qE '^(revert: )?(feat|fix|docs|style|refactor|perf|test|workflow|ci|chore|types|build|revert)(\(.+\))?: .{1,80}$'
+then
+  exit 0
+else
+  echo "Abortando commit. Tu mensaje de commit es inválido. Debería ser de la forma 'tipo(scope): mensaje' donde tipo es uno de los siguientes: feat, fix, docs, style, refactor, perf, test, workflow, ci, chore, types, build, revert. El scope es opcional y el mensaje debe tener una longitud máxima de 80 caracteres. Tener en cuenta el uso de dos puntos y un espacio después del tipo y el scope. Ejemplo: 'feat(core): add new feature'"
+  exit 1
+fi
