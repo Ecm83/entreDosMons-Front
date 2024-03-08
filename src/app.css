@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.new-color {
+		@apply placeholder:text-red-700 !important;
+
+	}
+
+*{box-sizing: border-box;}
