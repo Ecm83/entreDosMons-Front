@@ -54,19 +54,21 @@
 		// Intento de registro
 		try {
 			const user = {
-				name: inputNameValue,
-				surname: inputSurnameValue,
+				username: inputNameValue,
+				userSurname: inputSurnameValue,
 				email: inputEmailValue,
-				password: inputPasswordValue,
-				password_confirmation: inputPasswordConfirmationValue
+				password: inputPasswordValue
 			};
-			await register(user);
+			const newUser = await register(user);
 			inputNameValue = '';
 			inputSurnameValue = '';
 			inputEmailValue = '';
 			inputPasswordValue = '';
 			inputPasswordConfirmationValue = '';
-			alert('Registre completat amb éxit. Si us plau, revisa el teu email per comfirmar.');
+			alert(
+				'Registre completat amb éxit. Si us plau, revisa el teu email per comfirmar.',
+				JSON.stringify(newUser)
+			);
 		} catch (error) {
 			console.error(`Error al registrar l' usuari:`, error);
 			error(`Error al registrar l' usuari. Si us plau intenta-ho de nou.`);

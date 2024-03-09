@@ -1,17 +1,16 @@
 export async function register(user) {
 	try {
-		const { name, surname, email, password, password_confirmation } = user;
-		const response = await fetch(import.meta.env.VITE_REGISTER_POST, {
+		const { username, userSurname, email, password } = user;
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				name,
-				surname,
+				username,
+				userSurname,
 				email,
-				password,
-				password_confirmation
+				password
 			})
 		});
 		const data = await response.json();
