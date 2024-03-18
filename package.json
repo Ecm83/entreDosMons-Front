@@ -7,7 +7,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "vitest",
-		"lint": "prettier --check . && eslint .",
+		"lint": "prettier --write . && eslint . --fix",
 		"format": "prettier --write .",
 		"prepare": "husky install"
 	},
@@ -22,7 +22,7 @@
 		"eslint-plugin-svelte": "^2.35.1",
 		"flowbite": "^2.3.0",
 		"flowbite-svelte": "^0.44.24",
-		"flowbite-svelte-icons": "^1.4.1",
+		"flowbite-svelte-icons": "^1.4.3",
 		"husky": "^8.0.0",
 		"lint-staged": "^15.2.2",
 		"postcss": "^8.4.35",
@@ -33,5 +33,8 @@
 		"vite": "^5.0.3",
 		"vitest": "^1.2.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"simple-svelte-autocomplete": "^2.5.2"
+	}
 }

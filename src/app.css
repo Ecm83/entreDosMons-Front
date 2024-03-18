@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 .new-color {
-		@apply placeholder:text-red-700 !important;
+	@apply placeholder:text-red-700 !important;
+}
 
-	}
-
-*{box-sizing: border-box;}
+* {
+	box-sizing: border-box;
+}

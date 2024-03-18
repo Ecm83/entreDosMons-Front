@@ -5,12 +5,12 @@
 	export let inputDescription;
 	export let inputType = 'text' || 'email' || 'password' || 'number' || 'tel' || 'url';
 	export let inputValue;
-	export let prop = '';
+	export let inputClass = 'focus:border-black w-full';
 </script>
 
 <div id={divId} class="grid gap-6 items-end w-auto m-2">
 	<FloatingLabelInput
-		classInput={`focus:border-black w-full ${prop}`}
+		classInput={inputClass}
 		style="outlined"
 		name="floating_outlined"
 		type={inputType}

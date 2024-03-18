@@ -33,11 +33,10 @@
 				</span>
 
 				<div class="dropdown-menu hidden absolute bg-white shadow-md mt-1">
-					<DropdownItem href="/">Panell de Control</DropdownItem>
-					<DropdownItem href="/">Crear Vi</DropdownItem>
-					<DropdownItem href="/">Editar Vi</DropdownItem>
-					<DropdownItem href="/docs/components/navbar">Config</DropdownItem>
-					<DropdownItem href="/">Finances</DropdownItem>
+					<DropdownItem href="/dashboard">Panell de Control</DropdownItem>
+					<DropdownItem href="/dashboard/createWine">Crear Vi</DropdownItem>
+					<DropdownItem href="/selectFilters">Filtres</DropdownItem>
+					<DropdownItem href="/finances">Finances</DropdownItem>
 					<DropdownDivider />
 					<DropdownItem href="/">Sortir</DropdownItem>
 				</div>
@@ -45,16 +44,23 @@
 
 			<span class="background">
 				<span class="link"
-					><NavLi href="/settings"
+					><NavLi href="/advancedFilters"
 						><span class="highlight-letter">B</span><span class="text-color">uscador Avançat</span
 						></NavLi
 					></span
 				>
 				<span class="link"
-					><NavLi href="/pricing"><span class="highlight-letter">C</span>arta Clássica</NavLi></span
+					><NavLi href="/selectFilters"
+						><span class="highlight-letter">C</span><span class="text-color">arta Clássica</span
+						></NavLi
+					></span
 				>
 				<span class="link"
-					><NavLi href="/contact"><span class="highlight-letter">A</span>ccedeix</NavLi></span
+					><NavLi href="/login"
+						><span class="highlight-letter">A</span><span class="text-color text-gray-700"
+							>ccedeix</span
+						></NavLi
+					></span
 				>
 			</span>
 		</NavUl>

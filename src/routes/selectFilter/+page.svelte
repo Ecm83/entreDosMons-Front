@@ -1,61 +1,31 @@
 <script>
-	import { AccordionItem, Accordion } from 'flowbite-svelte';
+	import CustomButton from '../../components/CustomButton.svelte';
+
+	let classicMenu = () => {
+		console.log('Classic Button clicked');
+	};
+
+	let advancedMenu = () => {
+		console.log('Advanced Button clicked');
+	};
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-
-<Accordion>
-	<AccordionItem>
-		<span slot="header">My Header 1</span>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab necessitatibus sint
-			explicabo ...
-		</p>
-		<p class="text-gray-500 dark:text-gray-400">
-			Check out this guide to learn how to <a
-				href="/"
-				target="_blank"
-				rel="noreferrer"
-				class="text-blue-600 dark:text-blue-500 hover:underline"
-			>
-				get started
-			</a>
-			and start developing websites even faster with components on top of Tailwind CSS.
-		</p>
-	</AccordionItem>
-	<AccordionItem>
-		<span slot="header">My Header 2</span>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab necessitatibus sint
-			explicabo ...
-		</p>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab necessitatibus sint
-			explicabo ...
-		</p>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
-		<ul class="list-disc ps-5 dark:text-gray-400 text-gray-500">
-			<li>
-				<a
-					href="/"
-					target="_blank"
-					rel="noreferrer"
-					class="text-blue-600 dark:text-blue-500 hover:underline"
-				>
-					Lorem ipsum
-				</a>
-			</li>
-			<li>
-				<a
-					href="https://tailwindui.com/"
-					rel="noreferrer"
-					target="_blank"
-					class="text-blue-600 dark:text-blue-500 hover:underline"
-				>
-					Tailwind UI
-				</a>
-			</li>
-		</ul>
-	</AccordionItem>
-</Accordion>
+<div class="flex flex-col justify-center bg-secondary-100">
+	<div class="text-center w-full">
+		<!-- Este div contiene el texto centrado -->
+		<h1>Benvinguts al restaurant Entre Dos Mons</h1>
+		<p>Escolliu el médoe de navegacio</p>
+	</div>
+	<div class="w-3/4 mx-auto mt-5">
+		<CustomButton
+			handleClick={classicMenu}
+			buttonText={'Carta Clásica'}
+			btnClasses={'text-white w-full bg-primary-50 hover:bg-secondary-50 hover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-105 transition-transform color-white'}
+		/>
+		<CustomButton
+			handleClick={advancedMenu}
+			buttonText={'Carta Avançada'}
+			btnClasses={'text-white w-full bg-primary-50 hover:bg-secondary-50 hover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-105 transition-transform mt-5 color-white'}
+		/>
+	</div>
+</div>
