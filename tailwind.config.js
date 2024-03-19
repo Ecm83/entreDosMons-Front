@@ -1,28 +1,52 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'],
-  
-  plugins: [require('flowbite/plugin')],
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
+	],
 
-  darkMode: 'class',
+	plugins: [require('flowbite/plugin')],
 
-  theme: {
-    extend: {
-      colors: {
-        // flowbite-svelte
-        primary: {
-          50: '#FFF5F2',
-          100: '#FFF1EE',
-          200: '#FFE4DE',
-          300: '#FFD5CC',
-          400: '#FFBCAD',
-          500: '#FE795D',
-          600: '#EF562F',
-          700: '#EB4F27',
-          800: '#CC4522',
-          900: '#A5371B'
-        }
-      }
-    }
-  }
+	darkMode: 'class',
+
+	theme: {
+		extend: {
+			boxShadow: {
+				custom: '5px 10px 14px 0 rgba(0, 0, 0, 0.3)'
+			},
+			scale: {
+				50: '1.03'
+			},
+
+			active: {
+				scale: 0.95
+			},
+
+			colors: {
+				primary: {
+					50: '#000000'
+				},
+
+				secondary: {
+					50: '#83072D',
+					100: '#ff0000'
+				},
+
+				ok: {
+					50: '#12a351',
+					100: '#008000'
+				},
+
+				upload: {
+					50: '#5564ec',
+					100: '#1414b8'
+				},
+
+				delete: {
+					50: '#d84237',
+					100: '#ff0000'
+				}
+			}
+		}
+	}
 };

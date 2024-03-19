@@ -1,61 +1,58 @@
 <script>
-	import { AccordionItem, Accordion } from 'flowbite-svelte';
+	import CustomButton from '../../components/CustomButton.svelte';
+	import Form from '../../components/Form.svelte';
+	import Input from '../../components/Input.svelte';
+	import { login } from '../../api/apiCalls.js';
+	import { user } from '../../store/user.js';
+	import { goto } from '$app/navigation';
+
+	let emailValue = '';
+	let passwordValue = '';
+	let errorMessage = '';
+
+	async function loginHandler() {
+		try {
+			const data = await login({ email: emailValue, password: passwordValue });
+			if (data && data.user) {
+				user.set({ user: data.user, token: data.token });
+				localStorage.setItem('token', JSON.stringify(data.token));
+				console.log('Inici de sessió correcte');
+				if (data.user.role === 'admin') {
+					goto('/dashboard');
+				} else {
+					goto('/selectFilter');
+				}
+				errorMessage = '';
+			} else {
+				errorMessage = 'Error al iniciar sessió';
+			}
+		} catch (error) {
+			errorMessage = error.message || 'Error desconegut al iniciar sessió';
+		}
+	}
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-
-<Accordion>
-	<AccordionItem>
-		<span slot="header">My Header 1</span>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab necessitatibus sint
-			explicabo ...
-		</p>
-		<p class="text-gray-500 dark:text-gray-400">
-			Check out this guide to learn how to <a
-				href="/"
-				target="_blank"
-				rel="noreferrer"
-				class="text-blue-600 dark:text-blue-500 hover:underline"
-			>
-				get started
-			</a>
-			and start developing websites even faster with components on top of Tailwind CSS.
-		</p>
-	</AccordionItem>
-	<AccordionItem>
-		<span slot="header">My Header 2</span>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab necessitatibus sint
-			explicabo ...
-		</p>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab necessitatibus sint
-			explicabo ...
-		</p>
-		<p class="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
-		<ul class="list-disc ps-5 dark:text-gray-400 text-gray-500">
-			<li>
-				<a
-					href="/"
-					target="_blank"
-					rel="noreferrer"
-					class="text-blue-600 dark:text-blue-500 hover:underline"
-				>
-					Lorem ipsum
-				</a>
-			</li>
-			<li>
-				<a
-					href="https://tailwindui.com/"
-					rel="noreferrer"
-					target="_blank"
-					class="text-blue-600 dark:text-blue-500 hover:underline"
-				>
-					Tailwind UI
-				</a>
-			</li>
-		</ul>
-	</AccordionItem>
-</Accordion>
+<Form
+	formName="Accedeix"
+	formClass="max-w-xl mx-auto p-5 border rounded-lg shadow-md bg-white"
+	fieldsetClass=" space-y-5 p-4 rounded-md w-100%"
+	legendClass="text-center text-2xl"
+>
+	<Input divId="email" inputDescription="Email" inputType="email" bind:inputValue={emailValue} />
+	<Input
+		divId="password"
+		inputDescription="Contrasenya"
+		inputType="password"
+		bind:inputValue={passwordValue}
+	/>
+	{#if errorMessage}
+		<p class="text-red-500">{errorMessage}</p>
+	{/if}
+	<div class="mt-5 p-2">
+		<CustomButton
+			btnClasses={'text-white w-full bg-primary-50 hover:bg-secondary-50 hover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform mt-5 color-white'}
+			handleClick={loginHandler}
+			buttonText={'Iniciar sessió'}
+		/>
+	</div>
+</Form>
