@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { addCountry } from './../api/countryCalls.js';
+	import { addCountry, getCountryByName } from './../api/countryCalls.js';
 	import SaveButton from './SaveButton.svelte';
 	import { AccordionItem, Accordion, Button, Input, Label } from 'flowbite-svelte';
 	import AutoComplete from 'simple-svelte-autocomplete';
@@ -9,10 +9,11 @@
 	import CustomTextArea from './CustomTextArea.svelte';
 
 	let countries = [];
-	let newCountry = '';
+	$: newCountry = '';
 	let selectedCountry = '';
-	let description = '';
+	$: description = '';
 	let willCreateCountry = false;
+	$: loading = false;
 
 	const handleCreateCountry = async () => {
 		const createdCountry = await addCountry(newCountry, description);
@@ -20,8 +21,19 @@
 		console.log(createdCountry.countries.country);
 	};
 
-	const handleNewCountry = () => {
+	const handleNewCountry = async () => {
 		willCreateCountry = !willCreateCountry;
+		if (selectedCountry !== '') {
+			loading = true;
+			const editingCountry = await getCountryByName(selectedCountry);
+			console.log(editingCountry);
+			newCountry = editingCountry.country;
+			description = editingCountry.description;
+			loading = false;
+		} else {
+			newCountry = '';
+			description = '';
+		}
 	};
 
 	// const handleDeleteCountry = () => {
@@ -59,38 +71,43 @@
 					</Button>
 				</div>
 				{#if willCreateCountry}
-					<div class="bg-green-200 rounded-md p-3">
-						<p>Crear un nuevo pais si no existe en la lista:</p>
-						<Label for="country" class="mb-2">Country name</Label>
-						<Input
-							divId="country"
-							inputDescription="Introdueix un país"
-							inputType="text"
-							inputValue={newCountry}
-						/>
-						<CustomTextArea
-							forLbl="country"
-							lblTxt="Descripción del País"
-							id="description"
-							placeholder="Introdueix un país"
-							name="country"
-							bind:txtValue={description}
-						/>
-						<div class="flex gap-3">
-							<Button
-								class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
-								on:click={handleCreateCountry}
-							>
-								Guardar
-							</Button>
-							<Button
-								class={'text-white w-48 bg-delete-50 hover:bg-delete-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
-								on:click={(willCreateCountry = false)}
-							>
-								Cancelar
-							</Button>
+					{#if loading}
+						<p>Loading...</p>
+					{:else}
+						<div class="bg-green-200 rounded-md p-3">
+							<p>Crear un nuevo pais si no existe en la lista:</p>
+							<Label for="country" class="mb-2">Country name</Label>
+
+							<Input
+								divId="country"
+								inputDescription="Introdueix un país"
+								inputType="text"
+								bind:inputValue={newCountry}
+							/>
+							<CustomTextArea
+								forLbl="country"
+								lblTxt="Descripción del País"
+								id="description"
+								placeholder="Introdueix un país"
+								name="country"
+								bind:txtValue={description}
+							/>
+							<div class="flex gap-3">
+								<Button
+									class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+									on:click={handleCreateCountry}
+								>
+									Guardar
+								</Button>
+								<Button
+									class={'text-white w-48 bg-delete-50 hover:bg-delete-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+									on:click={(willCreateCountry = false)}
+								>
+									Cancelar
+								</Button>
+							</div>
 						</div>
-					</div>
+					{/if}
 				{/if}
 				<!-- <SaveButton handleSave={handleCreateCountry} /> -->
 				<!-- <UpdateButton handleUpdate={handleUploadCountry} />

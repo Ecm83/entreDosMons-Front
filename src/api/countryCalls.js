@@ -47,3 +47,22 @@ export async function addCountry(country, description) {
 		return { error: error.message };
 	}
 }
+
+// get country by name
+export async function getCountryByName(country) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries/name/${country}`);
+
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message, status: error.status };
+	}
+}
