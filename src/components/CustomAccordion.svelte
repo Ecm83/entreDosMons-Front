@@ -17,8 +17,12 @@
 
 	const handleCreateCountry = async () => {
 		const createdCountry = await addCountry(newCountry, description);
-		countries = [...countries, createdCountry.countries.country];
-		console.log(createdCountry.countries.country);
+		if (createdCountry && createdCountry.countries && createdCountry.countries.country) {
+			countries = [...countries, createdCountry.countries.country];
+			console.log(createdCountry.countries.country);
+		} else {
+			console.error('Unexpected response from API:', createdCountry);
+		}
 	};
 
 	const handleNewCountry = async () => {
@@ -26,9 +30,17 @@
 		if (selectedCountry !== '') {
 			loading = true;
 			const editingCountry = await getCountryByName(selectedCountry);
-			console.log(editingCountry);
-			newCountry = editingCountry.country;
-			description = editingCountry.description;
+			if (
+				editingCountry &&
+				typeof editingCountry.country === 'string' &&
+				typeof editingCountry.description === 'string'
+			) {
+				console.log(editingCountry);
+				newCountry = editingCountry.country;
+				description = editingCountry.description;
+			} else {
+				console.error('Unexpected response from API:', editingCountry);
+			}
 			loading = false;
 		} else {
 			newCountry = '';
@@ -82,8 +94,9 @@
 								divId="country"
 								inputDescription="Introdueix un país"
 								inputType="text"
-								bind:inputValue={newCountry}
+								bind:value={newCountry}
 							/>
+
 							<CustomTextArea
 								forLbl="country"
 								lblTxt="Descripción del País"
@@ -92,6 +105,7 @@
 								name="country"
 								bind:txtValue={description}
 							/>
+
 							<div class="flex gap-3">
 								<Button
 									class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
