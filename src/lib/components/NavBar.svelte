@@ -8,7 +8,7 @@
 		DropdownItem,
 		DropdownDivider
 	} from 'flowbite-svelte';
-	import logo from '../assets/img/logo.png';
+	import logo from '$lib/assets/img/logo.png';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { page } from '$app/stores';
 	$: activeUrl = $page.url.pathname;

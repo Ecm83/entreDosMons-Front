@@ -1,12 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import { addCountry, getCountryByName } from './../api/countryCalls.js';
-	import SaveButton from './SaveButton.svelte';
+	import SaveButton from './SaveButton.svelte.js';
 	import { AccordionItem, Accordion, Button, Input, Label } from 'flowbite-svelte';
 	import AutoComplete from 'simple-svelte-autocomplete';
 	// import UpdateButton from './UpdateButton.svelte';
 	// import DeleteButton from './DeleteButton.svelte';
-	import CustomTextArea from './CustomTextArea.svelte';
+	import CustomTextArea from './CustomTextArea.svelte.js';
 
 	let countries = [];
 	$: newCountry = '';
@@ -30,11 +30,7 @@
 		if (selectedCountry !== '') {
 			loading = true;
 			const editingCountry = await getCountryByName(selectedCountry);
-			if (
-				editingCountry &&
-				typeof editingCountry.country === 'string' &&
-				typeof editingCountry.description === 'string'
-			) {
+			if (editingCountry && typeof editingCountry.country === 'string') {
 				console.log(editingCountry);
 				newCountry = editingCountry.country;
 				description = editingCountry.description;
