@@ -1,5 +1,5 @@
 <script>
-	import CustomAccordion from '../../../components/CustomAccordion.svelte';
+	import CustomAccordion from '$lib/components/CustomAccordion.svelte';
 </script>
 
 <CustomAccordion></CustomAccordion>

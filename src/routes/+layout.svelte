@@ -1,8 +1,9 @@
 <script>
 	import '../app.css';
-	import NavBar from '../components/NavBar.svelte';
+	import NavBar from '$lib/components/NavBar.svelte';
 </script>
 
 <NavBar />
-
-<slot />
+<div class="container max-w-screen-xl mx-auto p-4">
+	<slot />
+</div>

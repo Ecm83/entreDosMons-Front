@@ -70,3 +70,24 @@ export async function getCountryByName(country) {
 		return { error: error.message, status: error.status };
 	}
 }
+
+// delete country
+export async function deleteCountry(id) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries/${id}`, {
+			method: 'DELETE'
+		});
+
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message, status: error.status };
+	}
+}

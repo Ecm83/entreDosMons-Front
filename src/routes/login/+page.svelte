@@ -1,9 +1,9 @@
 <script>
-	import CustomButton from '../../components/CustomButton.svelte';
-	import Form from '../../components/Form.svelte';
-	import Input from '../../components/Input.svelte';
-	import { login } from '../../api/apiCalls.js';
-	import { user } from '../../store/user.js';
+	import CustomButton from '$lib/components/CustomButton.svelte';
+	import Form from '$lib/components/Form.svelte';
+	import Input from '/components/Input.svelte';
+	import { login } from '$lib/api/apiCalls.js';
+	import { user } from '$lib/stores/user.js';
 	import { goto } from '$app/navigation';
 
 	let emailValue = '';

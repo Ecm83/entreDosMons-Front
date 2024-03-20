@@ -9,3 +9,8 @@
 * {
 	box-sizing: border-box;
 }
+
+.heading {
+	@apply text-secondary-50 text-3xl font-bold mb-4;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
