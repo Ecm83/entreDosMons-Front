@@ -1,41 +1,68 @@
 <script>
 	import { onMount } from 'svelte';
-	import { addCountry, getCountryByName } from './../api/countryCalls.js';
+	import {
+		addCountry,
+		getCountryByName,
+		updateCountryByName,
+		deleteCountryByName
+	} from './../api/countryCalls.js'; // Asegúrate de que tienes la función updateCountryByName en tu archivo de llamadas a la API
 	import SaveButton from './SaveButton.svelte';
 	import { AccordionItem, Accordion, Button, Input, Label } from 'flowbite-svelte';
 	import AutoComplete from 'simple-svelte-autocomplete';
-	// import UpdateButton from './UpdateButton.svelte';
-	// import DeleteButton from './DeleteButton.svelte';
 	import CustomTextArea from './CustomTextArea.svelte';
 
 	let countries = [];
-	$: newCountry = '';
+	let newCountry = '';
 	let selectedCountry = '';
-	$: description = '';
+	let description = '';
 	let willCreateCountry = false;
-	$: loading = false;
+	let loading = false;
 
 	const handleCreateCountry = async () => {
-		const createdCountry = await addCountry(newCountry, description);
-		if (createdCountry && createdCountry.countries && createdCountry.countries.country) {
-			countries = [...countries, createdCountry.countries.country];
-			console.log(createdCountry.countries.country);
+		if (newCountry !== '' && description !== '') {
+			loading = true;
+			const country = await getCountryByName(newCountry);
+			if (country && !country.error) {
+				console.error('Country already exists');
+			} else {
+				const response = await addCountry(newCountry, description);
+				if (response && !response.error) {
+					console.log('Country created:', response);
+				} else {
+					console.error('Unexpected response from API:', response);
+				}
+			}
+			loading = false;
 		} else {
-			console.error('Unexpected response from API:', createdCountry);
+			console.error('Country name and description are required');
 		}
 	};
 
+	const handleUpdateCountry = async () => {
+		if (newCountry !== '' && description !== '') {
+			loading = true;
+			const country = await getCountryByName(newCountry);
+			if (country && !country.error) {
+				const response = await updateCountryByName(newCountry, description);
+				if (response && !response.error) {
+					console.log('Country updated:', response);
+				} else {
+					console.error('Unexpected response from API:', response);
+				}
+			} else {
+				console.error('Country does not exist');
+			}
+			loading = false;
+		} else {
+			console.error('Country name and description are required');
+		}
+	};
 	const handleNewCountry = async () => {
 		willCreateCountry = !willCreateCountry;
-		if (selectedCountry !== '') {
+		if (willCreateCountry && selectedCountry !== '') {
 			loading = true;
 			const editingCountry = await getCountryByName(selectedCountry);
-			if (
-				editingCountry &&
-				typeof editingCountry.country === 'string' &&
-				typeof editingCountry.description === 'string'
-			) {
-				console.log(editingCountry);
+			if (editingCountry) {
 				newCountry = editingCountry.country;
 				description = editingCountry.description;
 			} else {
@@ -48,9 +75,22 @@
 		}
 	};
 
-	// const handleDeleteCountry = () => {
-	// 	console.log(newCountry);
-	// };
+	const handleDeleteCountry = async () => {
+		if (selectedCountry !== '') {
+			loading = true;
+			const response = await deleteCountryByName(selectedCountry);
+			if (response && !response.error) {
+				console.log('Country deleted:', response);
+				countries = countries.filter((country) => country !== selectedCountry);
+				selectedCountry = '';
+			} else {
+				console.error('Unexpected response from API:', response);
+			}
+			loading = false;
+		} else {
+			console.error('No country selected');
+		}
+	};
 
 	onMount(async () => {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries`);
@@ -76,7 +116,7 @@
 					/>
 					<span>or</span>
 					<Button
-						class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+						class={'text-white w-48 bg-ok-50 hover:bg-ok-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
 						on:click={handleNewCountry}
 					>
 						Create new country
@@ -87,12 +127,12 @@
 						<p>Loading...</p>
 					{:else}
 						<div class="bg-green-200 rounded-md p-3">
-							<p>Crear un nuevo pais si no existe en la lista:</p>
+							<p>Create a new country if it doesn't exist in the list:</p>
 							<Label for="country" class="mb-2">Country name</Label>
 
 							<Input
 								divId="country"
-								inputDescription="Introdueix un país"
+								inputDescription="Introduce un país"
 								inputType="text"
 								bind:value={newCountry}
 							/>
@@ -101,31 +141,40 @@
 								forLbl="country"
 								lblTxt="Descripción del País"
 								id="description"
-								placeholder="Introdueix un país"
+								placeholder="Introduce una descripción"
 								name="country"
 								bind:txtValue={description}
 							/>
 
 							<div class="flex gap-3">
 								<Button
-									class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+									class={'text-white w-48 bg-ok-50 hover:bg-ok-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
 									on:click={handleCreateCountry}
 								>
-									Guardar
+									Save
 								</Button>
 								<Button
-									class={'text-white w-48 bg-delete-50 hover:bg-delete-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
-									on:click={(willCreateCountry = false)}
+									class={'text-white w-48 bg-ok-50 hover:bg-ok-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+									on:click={handleUpdateCountry}
 								>
-									Cancelar
+									Update Country
+								</Button>
+								<Button
+									class={'text-white w-48 bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+									on:click={handleDeleteCountry}
+								>
+									Delete Country
+								</Button>
+								<Button
+									class={'text-white w-48 bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+									on:click={() => (willCreateCountry = false)}
+								>
+									Cancel
 								</Button>
 							</div>
 						</div>
 					{/if}
 				{/if}
-				<!-- <SaveButton handleSave={handleCreateCountry} /> -->
-				<!-- <UpdateButton handleUpdate={handleUploadCountry} />
-				<DeleteButton handleDelete={handleDeleteCountry} /> -->
 			</div>
 		</AccordionItem>
 
