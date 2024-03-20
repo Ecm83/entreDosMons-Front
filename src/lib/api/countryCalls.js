@@ -1,7 +1,9 @@
+import { countries } from '$lib/stores';
+
 /*
  *Get all countries
  */
-export const countries = async () => {
+export const getAllCountries = async () => {
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries`, {
 			method: 'GET',
@@ -17,7 +19,9 @@ export const countries = async () => {
 		}
 
 		const data = await response.json();
-		return data;
+		countries.set(data);
+
+		// return data;
 	} catch (error) {
 		console.error(error);
 		return { error: error.message, status: error.status };
