@@ -28,7 +28,9 @@ export const getAllCountries = async () => {
 	}
 };
 
-//Add new country
+/*
+ *Add new country
+ */
 export async function addCountry(country, description) {
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries`, {
@@ -52,7 +54,9 @@ export async function addCountry(country, description) {
 	}
 }
 
-// get country by name
+/*
+ * get country by name
+ */
 export async function getCountryByName(country) {
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries/name/${country}`);
@@ -71,7 +75,9 @@ export async function getCountryByName(country) {
 	}
 }
 
-// delete country
+/*
+ *Delete country
+ */
 export async function deleteCountry(id) {
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries/${id}`, {

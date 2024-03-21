@@ -3,14 +3,22 @@
 @tailwind utilities;
 
 .new-color {
-	@apply placeholder:text-red-700 !important;
+    @apply placeholder:text-red-700 !important;
 }
 
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .heading {
-	@apply text-secondary-50 text-3xl font-bold mb-4;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    @apply text-secondary-50 text-3xl font-bold mb-4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* .CustomButton {
+    @apply bg-primary-50 text-white font-bold py-2 px-4 rounded;
+
+    &.primary {
+        @apply  bg-upload-50 hover:bg-upload-100 text-base hover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform text-white;
+    }
+} */

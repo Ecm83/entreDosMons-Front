@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 	import { onMount } from 'svelte';
 	import { addCountry, getCountryByName } from './../api/countryCalls.js';
 	import SaveButton from './SaveButton.svelte.js';
@@ -120,9 +120,9 @@
 					{/if}
 				{/if}
 				<!-- <SaveButton handleSave={handleCreateCountry} /> -->
-				<!-- <UpdateButton handleUpdate={handleUploadCountry} />
+<!-- <UpdateButton handleUpdate={handleUploadCountry} />
 				<DeleteButton handleDelete={handleDeleteCountry} /> -->
-			</div>
+<!-- </div>
 		</AccordionItem>
 
 		<AccordionItem>
@@ -132,4 +132,4 @@
 			</div>
 		</AccordionItem>
 	</Accordion>
-</div>
+</div> -->
