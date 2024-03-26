@@ -23,6 +23,8 @@
 		} else {
 			console.error('Error creating country');
 		}
+		newCountry = '';
+		description = '';
 	};
 
 	onMount(async () => {

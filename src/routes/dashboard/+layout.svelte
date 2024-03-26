@@ -1,6 +1,7 @@
 <script>
 	import '../../app.css';
 	import LeftMenu from '../../lib/components/molecules/LeftMenu.svelte';
+	// import { LeftMenu } from '$lib/components/molecules';
 </script>
 
 <div class="container mx-auto">

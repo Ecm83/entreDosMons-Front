@@ -44,8 +44,8 @@ export async function addSoil(soil, description, effect) {
 		});
 
 		// if (!response.ok) {
-		//   const errorData = await response.json();
-		//   throw new Error(errorData.message || 'Error occurred while adding soil');
+		// 	const errorData = await response.json();
+		// 	throw new Error(errorData.message || 'Error occurred while adding soil');
 		// }
 
 		const data = await response.json();

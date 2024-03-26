@@ -18,8 +18,9 @@
 			<SidebarItem label="Panell de Control" href="/dashboard"></SidebarItem>
 			<SidebarItem label="Paísos" href="/dashboard/countries"></SidebarItem>
 			<SidebarItem label="Regions" href="/dashboard/regions"></SidebarItem>
+			<SidebarItem label="Raïms" href="/dashboard/grapes"></SidebarItem>
 			<SidebarItem label="Cellers" href="/dashboard/cellars"></SidebarItem>
-			<SidebarItem label="Tips de Terres" href="/dashboard/soils"></SidebarItem>
+			<SidebarItem label="Terres" href="/dashboard/soils"></SidebarItem>
 			<SidebarItem label="Sulfits" href="/dashboard/sulphites"></SidebarItem>
 			<SidebarItem label="Stock" href="/dashboard/stock"></SidebarItem>
 		</SidebarGroup>

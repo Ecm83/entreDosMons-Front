@@ -5,12 +5,13 @@
 	import CustomButton from '$lib/components/CustomButton.svelte';
 	import SoilCard from '../../../lib/components/atoms/SoilCard.svelte';
 	import { Button, Modal } from 'flowbite-svelte';
-	import Input from '../../../lib/components/Input.svelte';
+	import Input from '$lib/components/Input.svelte';
 
 	let openModal = false;
 	let size;
 
 	let soilsData = [];
+	console.log('14', soilsData);
 
 	$: $soils, (soilsData = $soils);
 	$: description = '';
@@ -24,10 +25,13 @@
 		} else {
 			console.error('Error creating soil');
 		}
+		newSoil = '';
+		description = '';
+		effect = '';
 	};
 
 	onMount(async () => {
-		console.log(soilsData);
+		console.log('34', soilsData);
 		if (soilsData.length === 0) {
 			await getAllSoils();
 		}
@@ -101,6 +105,5 @@
 			class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
 			on:click={handleCreateSoil}>Crear</Button
 		>
-		<Button color="red">X</Button>
 	</svelte:fragment>
 </Modal>

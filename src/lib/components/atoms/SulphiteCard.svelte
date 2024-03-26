@@ -1,34 +1,26 @@
 <script>
-	import banderas from '$lib/banderas';
-	import { deleteCountry, getAllCountries } from '$lib/api/countryCalls';
-	export let name;
-	export let description;
+	import { deleteSulphite, getSulphites } from '$lib/api/sulphitesCalls';
+	import testTube from '$lib/assets/img/testTube.png';
+	export let sulphiteMin;
+	export let sulphiteMax;
 	export let id;
 
-	let flag;
-	flag = banderas[name.toLowerCase()];
-
 	const handleDelete = async () => {
-		const result = await deleteCountry(id);
-		if (result.message === `Country with ID: ${id} deleted successfully`) {
-			await getAllCountries();
+		const result = await deleteSulphite(id);
+		if (result.message === `Sulphite with ID: ${id} deleted successfully`) {
+			await getSulphites();
 		} else {
-			console.error('Error deleting country');
+			console.error('Error deleting sulphite');
 		}
 	};
 </script>
 
 <div class="w-full" data-id={id}>
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
-		<div class="flag">
-			<img
-				class="h-16 object-cover object-center rounded-lg mb-4 aspect-video"
-				src={flag}
-				alt={name}
-			/>
-		</div>
-		<h2 class="text-xl font-bold">{name}</h2>
-		<p>{description}</p>
+		<img src={testTube} alt="Probeta d' assaig" class="w-12 inline" />
+		<h2 class="text-xl font-bold">
+			De {sulphiteMin} a {sulphiteMax} de sulfits (H<sub>2</sub>SO<sub>3</sub>)
+		</h2>
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
 				<button class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
