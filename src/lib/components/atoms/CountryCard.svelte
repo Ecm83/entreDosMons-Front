@@ -1,6 +1,6 @@
 <script>
 	import banderas from '$lib/banderas';
-	import { deleteCountry, getAllCountries } from '$lib/api/countryCalls';
+	import { deleteCountry, getAllCountries } from '$lib/api/';
 	export let name;
 	export let description;
 	export let id;
@@ -20,15 +20,19 @@
 
 <div class="w-full" data-id={id}>
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
-		<div class="flag">
-			<img
-				class="h-16 object-cover object-center rounded-lg mb-4 aspect-video"
-				src={flag}
-				alt={name}
-			/>
+		<div class="flex">
+			<div class="flag">
+				<img
+					class="h-16 object-cover object-center rounded-lg mb-4 aspect-video"
+					src={flag}
+					alt={name}
+				/>
+			</div>
+			<h2 class="text-xl font-bold mt-4 ml-4">{name}</h2>
 		</div>
-		<h2 class="text-xl font-bold">{name}</h2>
+		<hr class="mt-4 mb-4" />
 		<p>{description}</p>
+		<hr class="mt-4 mb-4" />
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
 				<button class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"

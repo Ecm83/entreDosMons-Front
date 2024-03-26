@@ -1,6 +1,6 @@
 <script>
-	import { deleteSoil, getAllSoils } from '../../api/soilCalls';
-	import { soils } from '../../stores/soils';
+	import { deleteSoil, getAllSoils } from '$lib/api/soilCalls';
+	import { soils } from '$lib/stores';
 	export let soil;
 	export let description;
 	export let effect;
