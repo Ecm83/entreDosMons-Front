@@ -1,13 +1,11 @@
 <script>
 	import { Select } from 'flowbite-svelte';
 	export let selected;
-	export let placeholder = 'Select a country';
+	export let placeholder = 'Type your input text';
+	export let id;
+	export let customClass = 'focus:border-black-2 w-full h-12 ';
 
-	let countries = [
-		{ value: 'us', name: 'United States' },
-		{ value: 'ca', name: 'Canada' },
-		{ value: 'fr', name: 'France' }
-	];
+	export let items;
 </script>
 
-<Select class="mt-2" items={countries} bind:value={selected} {placeholder} />
+<Select {id} size="md" class={customClass} {items} bind:value={selected} {placeholder} />

@@ -63,14 +63,14 @@ export const addRegion = async (region, description, countryId) => {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(region, description, countryId)
+			body: JSON.stringify({ region, countryId, description })
 		});
 
-		const { ok, status } = response;
+		// const { ok, status } = response;
 
-		if (!ok) {
-			throw new Error(`HTTP error! status: ${status}`);
-		}
+		// if (!ok) {
+		// 	throw new Error(`HTTP error! status: ${status}`);
+		// }
 
 		const data = await response.json();
 		console.log(data);
