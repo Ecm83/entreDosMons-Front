@@ -38,7 +38,7 @@
 <div class="container mx-auto p-4 rounded-lg w-full">
 	<h1 class="heading flex items-center gap-4 mb-">
 		Paísos <CustomButton
-			buttonText={'Crea nuevo país'}
+			buttonText={'Crea nou país'}
 			btnClasses={' text-base focus:ring-0 transition-transform hover:text-secondary hover:bg-secondary-50/80 hover:text-white'}
 			handleClick={() => {
 				size = 'xs';
@@ -49,7 +49,7 @@
 
 	{#if countriesData.length === 0}
 		<div class="flex items-center w-full gap-4">
-			<p>No hi ha paisos per mostrar.</p>
+			<p>No hi ha paísos per mostrar.</p>
 			<CustomButton
 				handleClick={() => console.log('click')}
 				btnClasses={'text-white bg-upload-50 hover:bg-upload-100 text-base hover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}

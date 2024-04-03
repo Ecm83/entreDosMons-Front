@@ -1,11 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
 	import { getAllRegions, getAllCountries, addRegion } from '$lib/api';
-	// import Input from '../../../lib/components/Input.svelte';
 	import { countries, regions } from '$lib/stores';
 	import CustomButton from '$lib/components/CustomButton.svelte';
 	import RegionCard from '$lib/components/atoms/RegionCard.svelte';
-	import { Button, Modal, Input } from 'flowbite-svelte';
+	import { Button, Modal } from 'flowbite-svelte';
+	import Input from '../../../lib/components/Input.svelte';
 	import CustomTextArea from '$lib/components/CustomTextArea.svelte';
 	import SelectInput from '../../../lib/components/SelectInput.svelte';
 
@@ -55,7 +55,7 @@
 </script>
 
 <div class="container mx-auto p-4 rounded-lg w-full">
-	<h1 class="heading flex items-center gap-4 mb-">
+	<h1 class="heading flex items-center gap-4">
 		Regions <CustomButton
 			buttonText={'Crea nova regió'}
 			btnClasses={' text-base focus:ring-0 transition-transform hover:text-secondary hover:bg-secondary-50/80 hover:text-white'}
@@ -103,13 +103,14 @@
 				divId="region"
 				inputDescription="Introdueix un regió"
 				inputType="text"
-				bind:value={newRegion}
+				placeholder="Introdueix una regió"
+				bind:inputValue={newRegion}
 			/>
 		</div>
 		<div class="mb-4">
 			<CustomTextArea
-				forLbl="description"
-				lblTxt="Descripció de la regió"
+				forLbl="region"
+				lblTxt=""
 				id="description"
 				placeholder="Introdueix una drecripció de la regió"
 				name="country"
