@@ -1,33 +1,34 @@
-<!-- <script>
+<script>
 	import CustomButton from '$lib/components/CustomButton.svelte';
-	// import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { regions, grapes, cellars } from '$lib/stores';
+	import { getAllRegions, getAllGrapes, getAllCellars } from '$lib/api';
 	import { Modal } from 'flowbite-svelte';
 	import DoubleSelect from '../../../lib/components/molecules/DoubleSelect.svelte';
 	let openModal = false;
 	let size;
 
-	// let regionsData = [];
-	// let grapesData = [];
-	// let cellarsData = [];
+	let regionsData = [];
+	let grapesData = [];
+	let cellarsData = [];
 
 	$: $regions, (regionsData = $regions);
 	$: $grapes, (grapesData = $grapes);
 	$: $cellars, (cellarsData = $cellars);
 
-	// onMount(async () => {
-	// 	if (regionsData.length === 0) {
-	// 		await getAllRegions();
-	// 	}
+	onMount(async () => {
+		if (regionsData.length === 0) {
+			await getAllRegions();
+		}
 
-	// 	if (grapesData.length === 0) {
-	// 		await getAllGrapes();
-	// 	}
+		if (grapesData.length === 0) {
+			await getAllGrapes();
+		}
 
-	// 	if (cellarsData.length === 0) {
-	// 		await getAllCellars();
-	// 	}
-	// });
+		if (cellarsData.length === 0) {
+			await getAllCellars();
+		}
+	});
 </script>
 
 <div class="container mx-auto p-4 rounded-lg w-full">
@@ -45,4 +46,4 @@
 
 <DoubleSelect></DoubleSelect>
 
-<Modal></Modal> -->
+<Modal bind:open={openModal} {size}></Modal>

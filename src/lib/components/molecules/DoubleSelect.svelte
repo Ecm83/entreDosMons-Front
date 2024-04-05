@@ -2,10 +2,9 @@
 	import { regions } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import SelectInput from '../SelectInput.svelte';
-	import { getAllRegions } from '$lib/api/regionsCalls';
-
+	import { getAllRegions } from '$lib/api';
 	let regionsData = [];
-
+	console.log('regionsData:', regionsData);
 	$: regions, (regionsData = $regions);
 	let countryId = '';
 
@@ -33,13 +32,15 @@
 			}));
 	}
 
-	$: regionsName = getRegionsByCountry(countryId);
-
 	onMount(async () => {
 		if (regionsData.length === 0) {
+			console.log('regionsData:', regionsData);
 			await getAllRegions();
 		}
 	});
+
+	$: regionsName = getRegionsByCountry(countryId);
+
 	console.log(regionsData.country);
 </script>
 
