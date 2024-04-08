@@ -1,4 +1,4 @@
-import { cellars } from '../stores/cellars.js ';
+import { cellars } from '$lib/stores/cellars';
 
 /*
  *Get all cellars
