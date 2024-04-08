@@ -21,7 +21,7 @@ export const getAllSoils = async () => {
 
 		const data = await response.json();
 		soils.set(data);
-		console.log(data);
+		console.log('Soils log in api calls:', data);
 
 		// return data;
 	} catch (error) {
