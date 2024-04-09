@@ -10,7 +10,7 @@
 		if (result.message === `Cellar with ID: ${id} deleted successfully`) {
 			await getAllCellars();
 		} else {
-			console.error('Error deleting country');
+			console.error('Error deleting cellar');
 		}
 	};
 </script>
