@@ -1,9 +1,9 @@
 <script>
 	import '../app.css';
-	import NavBar from '$lib/components/NavBar.svelte';
+	import { HeaderNav } from '$lib/components/organisms';
 </script>
 
-<NavBar />
+<HeaderNav />
 <div class="container max-w-screen-xl mx-auto p-4">
 	<slot />
 </div>

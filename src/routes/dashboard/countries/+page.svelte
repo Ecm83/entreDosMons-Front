@@ -1,12 +1,10 @@
 <script>
-	import CountryCard from '$lib/components/atoms/CountryCard.svelte';
-	import { addCountry } from '$lib/api/countryCalls';
+	import { CountryCard } from '$lib/components/organisms';
+	import { addCountry, getAllCountries } from '$lib/api/countryCalls';
 	import { countries } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { getAllCountries } from '$lib/api/countryCalls';
-	import CustomButton from '$lib/components/CustomButton.svelte';
 	import { Button, Input, Label, Modal } from 'flowbite-svelte';
-	import CustomTextArea from '$lib/components/CustomTextArea.svelte';
+	import { CustomTextArea, CustomButton } from '$lib/components/atoms';
 	let openModal = false;
 	let size;
 

@@ -56,7 +56,7 @@
 				/>
 			</div>
 		{:else}
-			<div class="gap-4 grid lg:grid-cols-3 sm:grid-cols-1">
+			<div class="gap-4 grid lg:grid-cols-2 sm:grid-cols-1">
 				{#each cellarsData as cellar (cellar.id)}
 					<CellarCard
 						name={cellar.cellar}
