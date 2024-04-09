@@ -7,9 +7,9 @@
 	export let placeholder;
 	export let name;
 	export let rows = '4';
-	export let txtClass = 'focus:border-black w-full';
+	export let txtClass = 'focus:ring-0  focus:border-primary-50 focus:border-[1.5px]';
 	export let txtValue;
 </script>
 
 <Label for={forLbl} {lblClass}>{lblTxt}</Label>
-<Textarea {id} {placeholder} {rows} {name} class={txtClass} bind:value={txtValue} />
+<Textarea {id} {placeholder} {rows} {name} class={txtClass} bind:value={txtValue} unWrappedClass />

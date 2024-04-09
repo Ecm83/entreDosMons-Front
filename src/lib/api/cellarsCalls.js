@@ -24,3 +24,26 @@ export const getAllCellars = async () => {
 		return { error: error.message, status: error.status };
 	}
 };
+
+/*
+ *Delete a cellar
+ */
+export async function deleteCellar(id) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/cellars/${id}`, {
+			method: 'DELETE'
+		});
+
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message, status: error.status };
+	}
+}

@@ -89,8 +89,11 @@
 	<svelte:fragment slot="footer">
 		<Button
 			class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
-			on:click={handleCreateWineType}>Create</Button
+			on:click={handleCreateWineType}>Crea</Button
 		>
-		<Button color="alternative">Cancel</Button>
+		<Button
+			class="text-white bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0
+			hover:scale-50 transition-transform color-white">Cancel·la</Button
+		>
 	</svelte:fragment>
 </Modal>

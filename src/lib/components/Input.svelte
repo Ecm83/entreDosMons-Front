@@ -1,7 +1,7 @@
 <script>
 	import { FloatingLabelInput } from 'flowbite-svelte';
-
 	export let divId;
+	// inputDescription: placeholder
 	export let inputDescription;
 	export let inputType = 'text' || 'email' || 'password' || 'number' || 'tel' || 'url';
 	export let inputValue;
