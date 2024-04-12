@@ -1,11 +1,10 @@
 <script>
 	import { getAllGrapes, addGrape } from '$lib/api';
 	import { onMount } from 'svelte';
-	import CustomButton from '$lib/components/CustomButton.svelte';
+	import { CustomButton, CustomTextArea } from '$lib/components/atoms';
 	import { grapes } from '$lib/stores';
 	import { Button, Input, Label, Modal } from 'flowbite-svelte';
-	import CustomTextArea from '$lib/components/CustomTextArea.svelte';
-	import GrapeCard from '$lib/components/atoms/GrapeCard.svelte';
+	import { GrapeCard } from '$lib/components/organisms';
 	let openModal = false;
 	let size = '';
 

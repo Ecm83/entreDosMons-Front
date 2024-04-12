@@ -3,11 +3,9 @@
 	import { onMount } from 'svelte';
 	import { cellars } from '$lib/stores';
 	import { getAllCellars } from '$lib/api';
-	import Input from '../../../lib/components/Input.svelte';
-	import CustomTextArea from '../../../lib/components/CustomTextArea.svelte';
-	import CustomButton from '../../../lib/components/CustomButton.svelte';
+	import { Input, CustomTextArea, CustomButton } from '$lib/components/atoms';
 	import { Modal, Button } from 'flowbite-svelte';
-	import CellarCard from '$lib/components/atoms/CellarCard.svelte';
+	import { CellarCard } from '$lib/components/organisms';
 
 	let openModal = false;
 	let size;

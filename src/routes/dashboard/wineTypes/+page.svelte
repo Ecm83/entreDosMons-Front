@@ -3,9 +3,8 @@
 	import { wineTypes } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { Button, Input, Label, Modal } from 'flowbite-svelte';
-	import CustomTextArea from '$lib/components/CustomTextArea.svelte';
-	import CustomButton from '$lib/components/CustomButton.svelte';
-	import WineTypeCard from '$lib/components/atoms/WineTypesCard.svelte';
+	import { CustomTextArea, CustomButton } from '$lib/components/atoms';
+	import { WineTypesCard } from '$lib/components/organisms';
 
 	let openModal = false;
 	let size;
@@ -54,7 +53,7 @@
 	{:else}
 		<div class="gap-4 grid lg:grid-cols-3 sm:grid-cols-1">
 			{#each wineTypesData as wineType}
-				<WineTypeCard
+				<WineTypesCard
 					name={wineType.wineType}
 					description={wineType.description}
 					id={wineType.id}

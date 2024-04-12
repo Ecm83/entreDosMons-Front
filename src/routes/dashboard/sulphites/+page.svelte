@@ -2,9 +2,8 @@
 	import { onMount } from 'svelte';
 	import { getSulphites, addSulphite } from '$lib/api/sulphitesCalls';
 	import { sulphites } from '$lib/stores/sulphites';
-	import CustomButton from '../../../lib/components/CustomButton.svelte';
-	import Input from '../../../lib/components/Input.svelte';
-	import SulphiteCard from '../../../lib/components/atoms/SulphiteCard.svelte';
+	import { CustomButton, Input } from '$lib/components/atoms';
+	import { SulphiteCard } from '$lib/components/organisms';
 	import { Modal, Button } from 'flowbite-svelte';
 
 	let openModal = false;

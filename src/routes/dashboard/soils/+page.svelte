@@ -2,10 +2,9 @@
 	import { soils } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { getAllSoils, addSoil } from '$lib/api/soilCalls';
-	import CustomButton from '$lib/components/CustomButton.svelte';
-	import SoilCard from '../../../lib/components/atoms/SoilCard.svelte';
+	import { CustomButton, Input } from '$lib/components/atoms';
+	import { SoilCard } from '$lib/components/organisms';
 	import { Button, Modal } from 'flowbite-svelte';
-	import Input from '$lib/components/Input.svelte';
 
 	let openModal = false;
 	let size;

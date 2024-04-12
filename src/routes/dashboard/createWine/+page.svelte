@@ -1,5 +1,1 @@
-<script>
-	import CustomAccordion from '$lib/components/CustomAccordion.svelte';
-</script>
-
-<CustomAccordion></CustomAccordion>
+<h1>Crete wine</h1>

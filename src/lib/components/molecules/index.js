@@ -1,1 +1,1 @@
-export { LeftMenu } from './LeftMenu.svelte';
+export { default as LeftMenu } from './LeftMenu.svelte';

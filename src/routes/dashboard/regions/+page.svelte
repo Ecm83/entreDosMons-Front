@@ -2,12 +2,9 @@
 	import { onMount } from 'svelte';
 	import { getAllRegions, getAllCountries, addRegion } from '$lib/api';
 	import { countries, regions } from '$lib/stores';
-	import CustomButton from '$lib/components/CustomButton.svelte';
-	import RegionCard from '$lib/components/atoms/RegionCard.svelte';
 	import { Button, Modal } from 'flowbite-svelte';
-	import Input from '../../../lib/components/Input.svelte';
-	import CustomTextArea from '$lib/components/CustomTextArea.svelte';
-	import SelectInput from '../../../lib/components/SelectInput.svelte';
+	import { RegionCard } from '$lib/components/organisms';
+	import { CustomTextArea, SelectInput, CustomButton, Input } from '$lib/components/atoms';
 
 	let openModal = false;
 	let size;

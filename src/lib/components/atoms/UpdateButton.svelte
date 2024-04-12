@@ -1,5 +1,5 @@
 <script>
-	import CustomButton from '../CustomButton.svelte';
+	import CustomButton from './CustomButton.svelte';
 
 	export let handleUpdate;
 </script>
