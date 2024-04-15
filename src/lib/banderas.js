@@ -303,5 +303,7 @@ export default {
 	vietnam:
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/540px-Flag_of_Vietnam.svg.png',
 	zàmbia:
-		'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Flag_of_Zambia.svg/540px-Flag_of_Zambia.svg.png'
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Flag_of_Zambia.svg/540px-Flag_of_Zambia.svg.png',
+	filipines:
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_the_Philippines.svg/540px-Flag_of_the_Philippines.svg.png'
 };

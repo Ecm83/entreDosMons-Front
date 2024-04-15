@@ -8,7 +8,7 @@
 	export let inputClass = 'focus:border-black w-full';
 </script>
 
-<div id={divId} class="grid gap-6 items-end w-auto m-2">
+<div id={divId} class="grid gap-6 items-end w-full">
 	<FloatingLabelInput
 		classInput={inputClass}
 		style="outlined"

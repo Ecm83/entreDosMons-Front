@@ -1,20 +1,22 @@
 <script>
-	// import CustomButton from '$lib/components/CustomButton.svelte';
+	import { DoubleSelect, VoiceRecognition } from '$lib/components/molecules';
 	import { onMount } from 'svelte';
-	import { cellars } from '$lib/stores';
-	import { getAllCellars } from '$lib/api';
-	import { Input, CustomTextArea, CustomButton } from '$lib/components/atoms';
+	import { cellars, regions } from '$lib/stores';
+	import { getAllCellars, getAllRegions } from '$lib/api';
+	import { Input, CustomButton } from '$lib/components/atoms';
 	import { Modal, Button } from 'flowbite-svelte';
 	import { CellarCard } from '$lib/components/organisms';
 
 	let openModal = false;
 	let size;
 
+	let regionsData = [];
 	let cellarsData = [];
 	let cellarName = '';
 	let distance = '';
 	let cellarDescription = '';
 
+	$: $regions, (regionsData = $regions);
 	$: $cellars, (cellarsData = $cellars);
 
 	const handleCreateCellar = async () => {
@@ -24,9 +26,14 @@
 	};
 
 	onMount(async () => {
+		if (regionsData.length === 0) {
+			await getAllRegions();
+		}
+		console.log('log de regionsData:', regionsData);
 		if (cellarsData.length === 0) {
 			await getAllCellars();
 		}
+		console.log('log de cellarsData:', cellarsData);
 	});
 </script>
 
@@ -68,16 +75,28 @@
 	</div>
 
 	<Modal title="Crear nou celler" bind:open={openModal} {size} autoclose>
-		<div class="flex">
-			<Input inputDescription={'Nom del celler'} inputType={'text'} bind:inputValue={cellarName} />
-			<Input inputDescription={'Distáncia Km'} inputType={'number'} bind:inputValue={distance} />
-		</div>
+		<div class="flex flex-col">
+			<div class="flex mb-4">
+				<Input
+					inputDescription={'Nom del celler'}
+					inputType={'text'}
+					bind:inputValue={cellarName}
+				/>
+				<Input inputDescription={'Distáncia Km'} inputType={'number'} bind:inputValue={distance} />
+			</div>
 
-		<CustomTextArea
-			forLbl={'cellarDescription'}
-			lblTxt={'Descripció del celler'}
-			bind:txtValue={cellarDescription}
-		/>
+			<!-- Aquí añadimos el DoubleSelect -->
+			<div class="mb-4">
+				<DoubleSelect />
+			</div>
+
+			<VoiceRecognition
+				forLbl={'cellarDescription'}
+				lblTxt={''}
+				bind:txtValue={cellarDescription}
+				placeholder={'Introdueix una descripció del celler'}
+			/>
+		</div>
 
 		<svelte:fragment slot="footer">
 			<Button
@@ -86,7 +105,7 @@
 			>
 			<Button
 				class="text-white bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0
-				hover:scale-50 transition-transform color-white">Cancel·la</Button
+            hover:scale-50 transition-transform color-white">Cancel·la</Button
 			>
 		</svelte:fragment>
 	</Modal>

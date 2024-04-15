@@ -47,3 +47,29 @@ export async function deleteCellar(id) {
 		return { error: error.message, status: error.status };
 	}
 }
+/*
+ *Create a cellar
+ */
+export async function createCellar(cellar, description, distance, regionId) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/cellars`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(cellar, description, distance, regionId)
+		});
+
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message, status: error.status };
+	}
+}

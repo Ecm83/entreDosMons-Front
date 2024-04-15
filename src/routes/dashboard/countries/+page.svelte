@@ -3,8 +3,9 @@
 	import { addCountry, getAllCountries } from '$lib/api/countryCalls';
 	import { countries } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { Button, Input, Label, Modal } from 'flowbite-svelte';
-	import { CustomTextArea, CustomButton } from '$lib/components/atoms';
+	import { Button, Modal } from 'flowbite-svelte';
+	import { CustomButton, Input } from '$lib/components/atoms';
+	import { VoiceRecognition } from '$lib/components/molecules';
 	let openModal = false;
 	let size;
 
@@ -57,16 +58,15 @@
 	{:else}
 		<div class="gap-4 grid lg:grid-cols-3 sm:grid-cols-1">
 			{#each countriesData as country (country.id)}
-				<CountryCard name={country.country} description={country.description} id={country.id} />
+				<CountryCard country={country.country} description={country.description} id={country.id} />
 			{/each}
 		</div>
 	{/if}
 </div>
 
-<Modal title="Crear nuevo país" bind:open={openModal} {size} autoclose>
+<Modal title="Crear País" bind:open={openModal} {size} autoclose>
 	<div class="rounded-md p-3">
 		<div class="mb-4">
-			<Label for="country" class="mb-2">Country name</Label>
 			<Input
 				divId="country"
 				inputDescription="Introdueix un país"
@@ -75,13 +75,13 @@
 			/>
 		</div>
 		<div class="mb-4">
-			<CustomTextArea
+			<VoiceRecognition
 				forLbl="country"
-				lblTxt="Descripción del País"
+				lblTxt="Descripció del País"
 				id="description"
-				placeholder="Introdueix un país"
+				placeholder="Introdueix la descripcio del país"
 				name="country"
-				bind:txtValue={description}
+				bind:textValue={description}
 			/>
 		</div>
 	</div>

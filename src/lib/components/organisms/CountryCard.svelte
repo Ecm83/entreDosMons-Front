@@ -1,12 +1,26 @@
 <script>
 	import banderas from '$lib/banderas';
-	import { deleteCountry, getAllCountries } from '$lib/api/';
-	export let name;
-	export let description;
+	import { deleteCountry, getAllCountries, updateCountry } from '$lib/api/';
+	import { Button, Label, Modal, Input } from 'flowbite-svelte';
+	import VoiceRecognition from '../molecules/VoiceRecognition.svelte';
 	export let id;
 
-	let flag;
-	flag = banderas[name.toLowerCase()];
+	export let country;
+	export let description;
+
+	$: flag = banderas[country.toLowerCase()];
+
+	let openModal = false;
+	let size;
+
+	const handleUpdateCountry = async () => {
+		const result = await updateCountry(id, country, description);
+		if (result.message === `Country with ID: ${id} updated successfully`) {
+			await getAllCountries();
+		} else {
+			console.error('Error updating country');
+		}
+	};
 
 	const handleDelete = async () => {
 		const result = await deleteCountry(id);
@@ -23,12 +37,12 @@
 		<div class="flex">
 			<div class="flag">
 				<img
-					class="h-16 object-cover object-center rounded-lg mb-4 aspect-video"
+					class="h-16 object-fill object-center mb-4 aspect-video w-full border border-black rounded"
 					src={flag}
-					alt={name}
+					alt={country}
 				/>
 			</div>
-			<h2 class="text-xl font-bold mt-4 ml-4">{name}</h2>
+			<h2 class="text-xl font-bold mt-4 ml-4">{country}</h2>
 		</div>
 		<hr class="mt-4 mb-4" />
 		<p>{description}</p>
@@ -44,6 +58,10 @@
 						height="24"
 						fill="none"
 						viewBox="0 0 24 24"
+						on:click={() => {
+							size = 'xs';
+							openModal = true;
+						}}
 					>
 						<path
 							stroke="currentColor"
@@ -81,3 +99,42 @@
 		</div>
 	</div>
 </div>
+
+<Modal title="Modificar país" bind:open={openModal} {size} autoclose>
+	<div class="rounded-md p-3">
+		<div class="mb-4">
+			<Label for="country" class="mb-2">Nom del país</Label>
+			<Input
+				divId="country"
+				inputDescription="Introdueix un país"
+				inputType="text"
+				bind:value={country}
+			/>
+		</div>
+		<div class="mb-4">
+			<VoiceRecognition
+				forLbl="country"
+				lblTxt="Descripció del País"
+				id="description"
+				placeholder="Introdueix un país"
+				name="country"
+				bind:textValue={description}
+			/>
+		</div>
+	</div>
+	<svelte:fragment slot="footer">
+		<Button
+			class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
+			on:click={handleUpdateCountry}
+		>
+			Actualiza</Button
+		>
+		<Button
+			class="text-white bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0
+			hover:scale-50 transition-transform color-white">Cancel·la</Button
+		>
+	</svelte:fragment>
+</Modal>
+
+<style>
+</style>

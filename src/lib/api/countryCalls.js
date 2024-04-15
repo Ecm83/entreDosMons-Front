@@ -97,3 +97,30 @@ export async function deleteCountry(id) {
 		return { error: error.message, status: error.status };
 	}
 }
+
+/*
+ *Update country
+ */
+export async function updateCountry(id, country, description) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/countries/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ country, description })
+		});
+
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message, status: error.status };
+	}
+}

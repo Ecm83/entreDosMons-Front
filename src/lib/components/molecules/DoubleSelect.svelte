@@ -1,7 +1,7 @@
 <script>
 	import { regions } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import SelectInput from '../SelectInput.svelte';
+	import { SelectInput } from '$lib/components/atoms';
 	import { getAllRegions } from '$lib/api';
 	let regionsData = [];
 	console.log('regionsData:', regionsData);
