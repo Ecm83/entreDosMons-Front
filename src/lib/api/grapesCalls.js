@@ -66,3 +66,28 @@ export async function deleteGrape(id) {
 		return { error: error.message };
 	}
 }
+
+/*
+ * Update grape
+ */
+
+export async function updateGrape(id, grape, description) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/grapes/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				grape,
+				description
+			})
+		});
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message };
+	}
+}

@@ -2,8 +2,14 @@
 	import { CustomTextArea } from '$lib/components/atoms';
 	import { onMount } from 'svelte';
 
+	/**
+	 * @param {string} textValue - The value of the textarea
+	 * @param {string} placeholder - The placeholder of the textarea
+	 * @param {string} lblSpech - The label of the textarea
+	 */
+
 	let recognition;
-	export let textValue = '';
+	export let textValue;
 	export let placeholder = 'Escriu aquí...';
 	export let lblSpech;
 
@@ -23,18 +29,13 @@
 		recognition.onresult = (event) => {
 			textValue = event.results[event.results.length - 1][0].transcript || '';
 			console.log('Result:', textValue);
+			recognition.stop();
 		};
 	});
 </script>
 
 <div class="flex gap-2 align-center">
-	<CustomTextArea
-		{placeholder}
-		lblText={lblSpech}
-		forLbl={'textArea'}
-		id={'textArea'}
-		bind:txtValue={textValue}
-	/>
+	<CustomTextArea {placeholder} lblText={lblSpech} id={'textArea'} bind:txtValue={textValue} />
 
 	<div class="flex-col gap-2">
 		<svg

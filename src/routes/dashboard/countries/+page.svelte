@@ -16,14 +16,18 @@
 	$: newCountry = '';
 
 	const handleCreateCountry = async () => {
-		const createdCountry = await addCountry(newCountry, description);
-		if (createdCountry.message === 'Country created succesfully') {
-			await getAllCountries();
-		} else {
+		try {
+			const createdCountry = await addCountry(newCountry, description);
+			console.log(createdCountry);
+			if (createdCountry.message === 'Country created successfully') {
+				await getAllCountries();
+			}
+		} catch (error) {
 			console.error('Error creating country');
+		} finally {
+			newCountry = '';
+			description = '';
 		}
-		newCountry = '';
-		description = '';
 	};
 
 	onMount(async () => {
@@ -71,17 +75,14 @@
 				divId="country"
 				inputDescription="Introdueix un país"
 				inputType="text"
-				bind:value={newCountry}
+				bind:inputValue={newCountry}
 			/>
 		</div>
 		<div class="mb-4">
 			<VoiceRecognition
-				forLbl="country"
-				lblTxt="Descripció del País"
-				id="description"
-				placeholder="Introdueix la descripcio del país"
-				name="country"
+				placeholder="Descripció del país"
 				bind:textValue={description}
+				lblSpech={''}
 			/>
 		</div>
 	</div>

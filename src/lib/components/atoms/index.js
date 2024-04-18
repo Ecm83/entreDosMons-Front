@@ -8,3 +8,4 @@ export { default as Input } from './Input.svelte';
 export { default as SaveButton } from './SaveButton.svelte';
 export { default as SelectInput } from './SelectInput.svelte';
 export { default as UpdateButton } from './UpdateButton.svelte';
+export { default as UserAlert } from './UserAlert.svelte';

@@ -2,11 +2,13 @@
 	import { getWineTypes, deleteWineType } from '$lib/api/wineTypesCalls';
 	import { wineTypes } from '$lib/stores';
 	import { onMount } from 'svelte';
-	export let name;
+	import { WineTypesUpdateModal } from '$lib/components/organisms';
+	export let wineType;
 	export let description;
 	export let id;
 
 	let wineTypesData = [];
+	let openModal = false;
 
 	$: $wineTypes, (wineTypesData = $wineTypes);
 
@@ -30,14 +32,18 @@
 <div class="w-full" data-id={id}>
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
 		<div class="flex">
-			<h2 class="text-xl font-bold mt-4 ml-4">{name}</h2>
+			<h2 class="text-xl font-bold mt-4 ml-4">{wineType}</h2>
 		</div>
 		<hr class="mt-4 mb-4" />
 		<p>{description}</p>
 		<hr class="mt-4 mb-4" />
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
-				<button class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
+				<button
+					on:click={() => {
+						openModal = true;
+					}}
+					class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
 					><svg
 						class="w-4 h-4 text-white dark:text-white"
 						aria-hidden="true"
@@ -83,3 +89,5 @@
 		</div>
 	</div>
 </div>
+
+<WineTypesUpdateModal bind:openModal bind:wineType bind:description {id} on:updateWineType />

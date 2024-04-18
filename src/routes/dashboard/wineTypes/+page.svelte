@@ -1,29 +1,51 @@
 <script>
-	import { getWineTypes, addWineType } from '$lib/api/wineTypesCalls';
+	import { getWineTypes } from '$lib/api/wineTypesCalls';
 	import { wineTypes } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { Button, Input, Label, Modal } from 'flowbite-svelte';
-	import { CustomTextArea, CustomButton } from '$lib/components/atoms';
-	import { WineTypesCard } from '$lib/components/organisms';
+	import { CustomButton, UserAlert } from '$lib/components/atoms';
+	import { WineTypesCard, WineTypesCreateModal } from '$lib/components/organisms';
 
 	let openModal = false;
-	let size;
 
 	let wineTypesData = [];
 
 	$: $wineTypes, (wineTypesData = $wineTypes);
-	$: newWineTipe = '';
-	$: description = '';
 
-	const handleCreateWineType = async () => {
-		const createdWineType = await addWineType(newWineTipe, description);
-		if (createdWineType.message === 'Wine type created successfully') {
-			await getWineTypes();
+	let showAlert = false;
+	let alertColor = '';
+	let alertType = '';
+	let alertText = '';
+
+	const handleCreateWineType = (e) => {
+		showAlert = true;
+		if (e.detail.status === 'success') {
+			alertColor = 'green';
+			alertType = 'Èxit';
+			alertText = 'Nou tipus de vi creat';
 		} else {
-			console.error('Error creating wine type');
+			alertColor = 'red';
+			alertType = 'Error';
+			alertText = `No s'ha pogut crear el tipus de vi.`;
 		}
-		newWineTipe = '';
-		description = '';
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
+	};
+
+	const handleUpdateWineType = (e) => {
+		showAlert = true;
+		if (e.detail.status === 'success') {
+			alertColor = 'green';
+			alertType = 'Èxit';
+			alertText = 'Nou tipus de vi creat';
+		} else {
+			alertColor = 'red';
+			alertType = 'Error';
+			alertText = `No s'ha pogut crear el tipus de vi.`;
+		}
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
 	};
 
 	onMount(async () => {
@@ -34,13 +56,16 @@
 	});
 </script>
 
+{#if showAlert}
+	<UserAlert color={alertColor} infoAlert={alertType} infoText={alertText} />
+{/if}
+
 <div class="container mx-auto p-4 rounded-lg w-full">
 	<h1 class="heading flex items-center gap-4 mb-">
 		Tipus de vi <CustomButton
 			buttonText={'Crea nou tipus de vi'}
 			btnClasses={' text-base focus:ring-0 transition-transform hover:text-secondary hover:bg-secondary-50/80 hover:text-white'}
 			handleClick={() => {
-				size = 'xs';
 				openModal = true;
 			}}
 		/>
@@ -54,7 +79,8 @@
 		<div class="gap-4 grid lg:grid-cols-3 sm:grid-cols-1">
 			{#each wineTypesData as wineType}
 				<WineTypesCard
-					name={wineType.wineType}
+					on:updateWineType={handleUpdateWineType}
+					wineType={wineType.wineType}
 					description={wineType.description}
 					id={wineType.id}
 				/>
@@ -63,36 +89,4 @@
 	{/if}
 </div>
 
-<Modal title="Crear nou tipus de vi" bind:open={openModal} {size} autoclose>
-	<div class="rounded-md p-3">
-		<div class="mb-4">
-			<Label for="wine-type" class="mb-2">Wine Type</Label>
-			<Input
-				divId="wine-type"
-				inputDescription="Introdueix un nou tipus de vi"
-				inputType="text"
-				bind:value={newWineTipe}
-			/>
-		</div>
-		<div class="mb-4">
-			<CustomTextArea
-				forLbl="description"
-				lblTxt="Descripció del tipus de vi"
-				id="description"
-				placeholder="Introdueix la descripció del tipus de vi"
-				name="description"
-				bind:txtValue={description}
-			/>
-		</div>
-	</div>
-	<svelte:fragment slot="footer">
-		<Button
-			class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
-			on:click={handleCreateWineType}>Crea</Button
-		>
-		<Button
-			class="text-white bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0
-			hover:scale-50 transition-transform color-white">Cancel·la</Button
-		>
-	</svelte:fragment>
-</Modal>
+<WineTypesCreateModal bind:openModal on:createWineType={handleCreateWineType} />

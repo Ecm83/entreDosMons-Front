@@ -54,3 +54,28 @@ export async function deleteWineType(id) {
 		return { error: error.message };
 	}
 }
+
+/**
+ * Update wine type
+ */
+
+export async function updateWineType(id, wineType, description) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/wineTypes/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				wineType,
+				description
+			})
+		});
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message };
+	}
+}

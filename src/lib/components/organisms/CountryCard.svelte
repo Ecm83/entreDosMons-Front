@@ -135,6 +135,3 @@
 		>
 	</svelte:fragment>
 </Modal>
-
-<style>
-</style>

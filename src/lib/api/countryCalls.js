@@ -41,10 +41,11 @@ export async function addCountry(country, description) {
 			body: JSON.stringify({ country, description })
 		});
 
-		// if (!response.ok) {
-		//   const errorData = await response.json();
-		//   throw new Error(errorData.message || 'Error occurred while adding country');
-		// }
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
 
 		const data = await response.json();
 		return data;

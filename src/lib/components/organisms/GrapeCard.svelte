@@ -1,28 +1,40 @@
 <script>
 	import { deleteGrape, getAllGrapes } from '$lib/api';
-	export let name;
+	import { GrapesUpdateModal } from '$lib/components/organisms';
+	import { createEventDispatcher } from 'svelte';
+
+	export let grape;
 	export let description;
 	export let id;
+
+	let openModal = false;
+	const dispatch = createEventDispatcher();
 
 	const handleDelete = async () => {
 		const result = await deleteGrape(id);
 		if (result.message === `Grape with ID: ${id} deleted successfully`) {
 			await getAllGrapes();
+			dispatch('deleteGrape', { status: 'success' });
 		} else {
 			console.error('Error deleting grape');
+			dispatch('deleteGrape', { status: 'error' });
 		}
 	};
 </script>
 
 <div class="w-full" data-id={id}>
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
-		<h2 class="text-xl font-bold">{name}</h2>
+		<h2 class="text-xl font-bold">{grape}</h2>
 		<hr class="mt-4 mb-4" />
 		<p>{description}</p>
 		<hr class="mt-4 mb-4" />
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
-				<button class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
+				<button
+					on:click={() => {
+						openModal = true;
+					}}
+					class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
 					><svg
 						class="w-4 h-4 text-white dark:text-white"
 						aria-hidden="true"
@@ -68,3 +80,5 @@
 		</div>
 	</div>
 </div>
+
+<GrapesUpdateModal bind:openModal bind:grape bind:description on:updateGrape {id} />
