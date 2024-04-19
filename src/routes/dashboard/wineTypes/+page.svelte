@@ -16,33 +16,40 @@
 	let alertType = '';
 	let alertText = '';
 
-	const handleCreateWineType = (e) => {
+	const handleCreate = (e) => {
 		showAlert = true;
-		if (e.detail.status === 'success') {
-			alertColor = 'green';
-			alertType = 'Èxit';
-			alertText = 'Nou tipus de vi creat';
-		} else {
-			alertColor = 'red';
-			alertType = 'Error';
-			alertText = `No s'ha pogut crear el tipus de vi.`;
-		}
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success'
+				? 'Nou tipus de vi creat'
+				: `No s'ha pogut crear el tipus de vi.`;
 		setTimeout(() => {
 			showAlert = false;
 		}, 3000);
 	};
 
-	const handleUpdateWineType = (e) => {
+	const handleUpdate = (e) => {
 		showAlert = true;
-		if (e.detail.status === 'success') {
-			alertColor = 'green';
-			alertType = 'Èxit';
-			alertText = 'Nou tipus de vi creat';
-		} else {
-			alertColor = 'red';
-			alertType = 'Error';
-			alertText = `No s'ha pogut crear el tipus de vi.`;
-		}
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success'
+				? 'Nou tipus de vi creat'
+				: `No s'ha pogut crear el tipus de vi.`;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
+	};
+
+	const handleDelete = (e) => {
+		showAlert = true;
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success'
+				? 'Tipus de vi eliminat.'
+				: `No s'ha pogut eliminar el tipus de vi.`;
 		setTimeout(() => {
 			showAlert = false;
 		}, 3000);
@@ -79,7 +86,8 @@
 		<div class="gap-4 grid lg:grid-cols-3 sm:grid-cols-1">
 			{#each wineTypesData as wineType}
 				<WineTypesCard
-					on:updateWineType={handleUpdateWineType}
+					on:updateWineType={handleUpdate}
+					on:deleteWineType={handleDelete}
 					wineType={wineType.wineType}
 					description={wineType.description}
 					id={wineType.id}
@@ -89,4 +97,4 @@
 	{/if}
 </div>
 
-<WineTypesCreateModal bind:openModal on:createWineType={handleCreateWineType} />
+<WineTypesCreateModal bind:openModal on:createWineType={handleCreate} />

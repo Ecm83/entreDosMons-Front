@@ -3,9 +3,13 @@
 	import { wineTypes } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { WineTypesUpdateModal } from '$lib/components/organisms';
+	import { createEventDispatcher } from 'svelte';
+
 	export let wineType;
 	export let description;
 	export let id;
+
+	let dispatch = createEventDispatcher();
 
 	let wineTypesData = [];
 	let openModal = false;
@@ -16,8 +20,10 @@
 		const result = await deleteWineType(id);
 		if (result.message === `Wine type with ID: ${id} deleted successfully`) {
 			await getWineTypes();
+			dispatch('deleteWineType', { status: 'success' });
 		} else {
 			console.error('Error deleting wine type');
+			dispatch('deleteWineType', { status: 'error' });
 		}
 	};
 
