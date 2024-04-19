@@ -16,19 +16,6 @@
 	let alertType = '';
 	let alertText = '';
 
-	const handleCreate = (e) => {
-		showAlert = true;
-		alertColor = e.detail.status === 'success' ? 'green' : 'red';
-		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
-		alertText =
-			e.detail.status === 'success'
-				? 'Nou tipus de vi creat'
-				: `No s'ha pogut crear el tipus de vi.`;
-		setTimeout(() => {
-			showAlert = false;
-		}, 3000);
-	};
-
 	const handleUpdate = (e) => {
 		showAlert = true;
 		alertColor = e.detail.status === 'success' ? 'green' : 'red';
@@ -50,6 +37,19 @@
 			e.detail.status === 'success'
 				? 'Tipus de vi eliminat.'
 				: `No s'ha pogut eliminar el tipus de vi.`;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
+	};
+
+	const handleCreate = (e) => {
+		showAlert = true;
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success'
+				? 'Nou tipus de vi creat'
+				: `No s'ha pogut crear el tipus de vi.`;
 		setTimeout(() => {
 			showAlert = false;
 		}, 3000);

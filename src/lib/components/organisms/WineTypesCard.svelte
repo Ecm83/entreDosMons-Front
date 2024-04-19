@@ -1,9 +1,8 @@
 <script>
 	import { getWineTypes, deleteWineType } from '$lib/api/wineTypesCalls';
 	import { wineTypes } from '$lib/stores';
-	import { onMount } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
 	import { WineTypesUpdateModal } from '$lib/components/organisms';
-	import { createEventDispatcher } from 'svelte';
 
 	export let wineType;
 	export let description;
