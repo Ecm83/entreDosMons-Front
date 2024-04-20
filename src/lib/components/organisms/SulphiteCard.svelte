@@ -19,7 +19,7 @@
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
 		<img src={testTube} alt="Probeta d' assaig" class="w-12 inline" />
 		<h2 class="text-xl font-bold">
-			De {sulphiteMin} a {sulphiteMax} de sulfits (H<sub>2</sub>SO<sub>3</sub>)
+			De {sulphiteMin} a {sulphiteMax} gr/l de sulfits (H<sub>2</sub>SO<sub>3</sub>)
 		</h2>
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">

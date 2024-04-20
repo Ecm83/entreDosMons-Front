@@ -16,46 +16,29 @@
 	let alertType = '';
 	let alertText = '';
 
-	const handleCreateGrape = (e) => {
+	const handleCreate = (e) => {
 		showAlert = true;
-		if (e.detail.status === 'success') {
-			alertColor = 'green';
-			alertType = 'Èxit';
-			alertText = 'Nou raïm creat';
-		} else {
-			alertColor = 'red';
-			alertType = 'Error';
-			alertText = `No s'ha pogut crear el raïm.`;
-		}
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText = e.detail.status === 'success' ? 'Nou raïm creat' : `No s'ha pogut crear el raïm.`;
 		setTimeout(() => {
 			showAlert = false;
 		}, 3000);
 	};
 
-	const handleDeleteGrape = (e) => {
+	const handleDelete = (e) => {
 		showAlert = true;
-		if (e.detail.status === 'success') {
-			alertColor = 'green';
-			alertType = 'Èxit';
-			alertText = 'Raïm eliminat';
-		} else {
-			alertColor = 'red';
-			alertType = 'Error';
-			alertText = `No s'ha pogut eliminar el raïm.`;
-		}
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText = e.detail.status === 'success' ? 'Raïm eliminat' : `No s'ha pogut eliminar el raïm.`;
 	};
 
-	const updateGrape = (e) => {
+	const handleUpdate = (e) => {
 		showAlert = true;
-		if (e.detail.status === 'success') {
-			alertColor = 'green';
-			alertType = 'Èxit';
-			alertText = 'Raïm actualitzat';
-		} else {
-			alertColor = 'red';
-			alertType = 'Error';
-			alertText = `No s'ha pogut actualitzar el raïm.`;
-		}
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success' ? 'Raïm actualitzat' : `No s'ha pogut actualitzar el raïm.`;
 		setTimeout(() => {
 			showAlert = false;
 		}, 3000);
@@ -85,8 +68,8 @@
 		<div class="gap-4 grid lg:grid-cols-3 sm:grid-cols-1">
 			{#each grapesData as grape (grape.id)}
 				<GrapeCard
-					on:updateGrape={updateGrape}
-					on:deleteGrape={handleDeleteGrape}
+					on:updateGrape={handleUpdate}
+					on:deleteGrape={handleDelete}
 					grape={grape.grape}
 					description={grape.description}
 					id={grape.id}
@@ -96,4 +79,4 @@
 	{/if}
 </div>
 
-<GrapesCreateModal bind:openModal on:createGrape={handleCreateGrape} />
+<GrapesCreateModal bind:openModal on:createGrape={handleCreate} />
