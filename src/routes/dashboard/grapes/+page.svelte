@@ -31,6 +31,9 @@
 		alertColor = e.detail.status === 'success' ? 'green' : 'red';
 		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
 		alertText = e.detail.status === 'success' ? 'Raïm eliminat' : `No s'ha pogut eliminar el raïm.`;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
 	};
 
 	const handleUpdate = (e) => {

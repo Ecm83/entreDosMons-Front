@@ -6,3 +6,4 @@ export { regions } from './regions';
 export { sulphites } from './sulphites';
 export { cellars } from './cellars';
 export { wineTypes } from './wineTypes';
+export { suppliers } from './suppliers';

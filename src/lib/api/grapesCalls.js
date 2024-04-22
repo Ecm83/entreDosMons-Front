@@ -1,7 +1,7 @@
 import { grapes } from '$lib/stores';
 
-/*
- *Get all grapes
+/**
+ * * Get all grapes
  */
 export const getAllGrapes = async () => {
 	try {
