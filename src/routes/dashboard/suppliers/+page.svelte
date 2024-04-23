@@ -26,6 +26,19 @@
 		}, 3000);
 	};
 
+	const handleUpdate = (e) => {
+		showAlert = true;
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success'
+				? 'Proveïdor actualitzat'
+				: `No s'ha pogut actualitzar el proveïdor.`;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
+	};
+
 	const handleDelete = (e) => {
 		showAlert = true;
 		alertColor = e.detail.status === 'success' ? 'green' : 'red';
@@ -63,6 +76,7 @@
 		<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
 			{#each suppliersData as supplier (supplier.id)}
 				<SupplierCard
+					on:updateSupplier={handleUpdate}
 					on:deleteSupplier={handleDelete}
 					id={supplier.id}
 					companyName={supplier.companyName}

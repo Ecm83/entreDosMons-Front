@@ -92,3 +92,51 @@ export async function deleteSupplier(id) {
 		return { error: error.message };
 	}
 }
+
+/**
+ * * Update supplier
+ */
+export async function updateSupplier(
+	id,
+	companyName,
+	brandName,
+	country,
+	city,
+	adress,
+	CP,
+	businessPhone,
+	contactName,
+	contactPhone,
+	businessEmail,
+	contactEmail,
+	description
+) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/suppliers/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				companyName,
+				brandName,
+				country,
+				city,
+				adress,
+				CP,
+				businessPhone,
+				contactName,
+				contactPhone,
+				businessEmail,
+				contactEmail,
+				description
+			})
+		});
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message };
+	}
+}

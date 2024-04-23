@@ -1,32 +1,31 @@
 <script>
 	import { soils } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { getAllSoils, addSoil } from '$lib/api/soilCalls';
-	import { CustomButton, Input } from '$lib/components/atoms';
-	import { SoilCard } from '$lib/components/organisms';
-	import { Button, Modal } from 'flowbite-svelte';
+	import { getAllSoils } from '$lib/api/soilCalls';
+	import { CustomButton, UserAlert } from '$lib/components/atoms';
+	import { SoilCard, SoilCreateModal } from '$lib/components/organisms';
 
 	let openModal = false;
-	let size;
-
 	let soilsData = [];
-	console.log('14', soilsData);
 
 	$: $soils, (soilsData = $soils);
-	$: description = '';
-	$: effect = '';
-	$: newSoil = '';
 
-	const handleCreateSoil = async () => {
-		const createdSoil = await addSoil(newSoil, description, effect);
-		if (createdSoil.message === 'Soil created succesfully') {
-			await getAllSoils();
-		} else {
-			console.error('Error creating soil');
-		}
-		newSoil = '';
-		description = '';
-		effect = '';
+	let showAlert = false;
+	let alertColor = '';
+	let alertType = '';
+	let alertText = '';
+
+	const handleCreate = (e) => {
+		showAlert = true;
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success'
+				? 'Nou tipus de vi creat'
+				: `No s'ha pogut crear el tipus de vi.`;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
 	};
 
 	onMount(async () => {
@@ -37,13 +36,16 @@
 	});
 </script>
 
+{#if showAlert}
+	<UserAlert color={alertColor} type={alertType} text={alertText} />
+{/if}
+
 <div class="container mx-auto p-4 rounded-lg w-full">
 	<h1 class="heading flex items-center gap-4 mb-">
 		Terres <CustomButton
 			buttonText={'Crea nou terra'}
 			btnClasses={' text-base focus:ring-0 transition-transform hover:text-secondary hover:bg-secondary-50/80 hover:text-white'}
 			handleClick={() => {
-				size = 'xs';
 				openModal = true;
 			}}
 		/>
@@ -72,42 +74,4 @@
 	{/if}
 </div>
 
-<Modal title="Crea un nou terra" bind:open={openModal} {size} autoclose>
-	<div class="rounded-md p-3">
-		<div class="mb-4">
-			<Input
-				divId="soil"
-				inputType="text"
-				inputDescription="Introdueix un terra"
-				bind:inputValue={newSoil}
-			/>
-		</div>
-		<div class="mb-4">
-			<Input
-				divId="description"
-				inputType="text"
-				inputDescription="Introdueix una descripció"
-				bind:inputValue={description}
-			/>
-		</div>
-		<div class="mb-4">
-			<Input
-				divId="effect"
-				inputType="text"
-				inputDescription="Introdueix un efecte"
-				bind:inputValue={effect}
-			/>
-		</div>
-	</div>
-	<svelte:fragment slot="footer">
-		<Button
-			class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
-			on:click={handleCreateSoil}>Crear</Button
-		>
-
-		<Button
-			class="text-white bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0
-			hover:scale-50 transition-transform color-white">Cancel·la</Button
-		>
-	</svelte:fragment>
-</Modal>
+<SoilCreateModal bind:openModal on:createSoil={handleCreate} />

@@ -1,7 +1,7 @@
 <script>
 	import { deleteSupplier, getSuppliers } from '$lib/api';
 	import { createEventDispatcher } from 'svelte';
-
+	import { SupplierUpdateModal } from '$lib/components/organisms';
 	export let openModal = false;
 
 	export let id;
@@ -159,3 +159,21 @@
 		</div>
 	</div>
 </div>
+
+<SupplierUpdateModal
+	bind:openModal
+	bind:companyName
+	bind:brandName
+	bind:country
+	bind:city
+	bind:adress
+	bind:CP
+	bind:businessPhone
+	bind:contactName
+	bind:contactPhone
+	bind:businessEmail
+	bind:contactEmail
+	bind:description
+	on:updateSupplier
+	{id}
+/>
