@@ -29,6 +29,7 @@
 						<SidebarItem label="Cellers" href="/dashboard/cellars"></SidebarItem>
 						<SidebarItem label="Sòls" href="/dashboard/soils"></SidebarItem>
 						<SidebarItem label="Sulfits" href="/dashboard/sulphites"></SidebarItem>
+						<SidebarItem label="Característiques " href="/dashboard/labels"></SidebarItem>
 						<SidebarItem label="Vins" href="/dashboard/wines"></SidebarItem>
 						<SidebarItem label="Stock" href="/dashboard/stock"></SidebarItem>
 					</SidebarGroup>
