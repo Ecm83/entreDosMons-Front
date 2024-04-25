@@ -9,6 +9,7 @@ export { default as SulphiteCard } from './SulphiteCard.svelte';
 export { default as CellarCard } from './CellarCard.svelte';
 export { default as WineTypesCard } from './WineTypesCard.svelte';
 export { default as SupplierCard } from './SupplierCard.svelte';
+export { default as LabelCard } from './LabelCard.svelte';
 
 /**
  * * Create Data Modal Components (POST request to API)
@@ -19,6 +20,7 @@ export { default as CountryCreateModal } from './CountryCreateModal.svelte';
 export { default as SulphitesCreateModal } from './SulphitesCreateModal.svelte';
 export { default as SupplierCreateModal } from './SupplierCreateModal.svelte';
 export { default as SoilCreateModal } from './SoilCreateModal.svelte';
+export { default as RegionCreateModal } from './RegionCreateModal.svelte';
 
 /**
  * * Edit Data Modal Components (PUT request to API)

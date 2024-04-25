@@ -30,8 +30,7 @@
 	};
 
 	onMount(async () => {
-		const grapes = await getAllGrapes();
-		console.log(grapes);
+		await getAllGrapes();
 	});
 </script>
 

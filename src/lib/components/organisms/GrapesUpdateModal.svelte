@@ -3,7 +3,7 @@
 	import { Input } from '$lib/components/atoms';
 	import { VoiceRecognition } from '$lib/components/molecules';
 	import { createEventDispatcher } from 'svelte';
-	import { updateGrape } from '$lib/api/grapesCalls';
+	import { updateGrape } from '$lib/api';
 
 	export let openModal = false;
 	export let grape;

@@ -29,7 +29,8 @@ export const getSuppliers = async () => {
  */
 export async function addSupplier(
 	companyName,
-	brandName,
+	fiscalName,
+	NIF,
 	country,
 	city,
 	adress,
@@ -49,7 +50,8 @@ export async function addSupplier(
 			},
 			body: JSON.stringify({
 				companyName,
-				brandName,
+				fiscalName,
+				NIF,
 				country,
 				city,
 				adress,
@@ -99,7 +101,8 @@ export async function deleteSupplier(id) {
 export async function updateSupplier(
 	id,
 	companyName,
-	brandName,
+	fiscalName,
+	NIF,
 	country,
 	city,
 	adress,
@@ -119,7 +122,8 @@ export async function updateSupplier(
 			},
 			body: JSON.stringify({
 				companyName,
-				brandName,
+				fiscalName,
+				NIF,
 				country,
 				city,
 				adress,

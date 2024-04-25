@@ -1,22 +1,24 @@
 <script>
-	import { deleteSoil, getAllSoils } from '$lib/api/soilCalls';
-	import { soils } from '$lib/stores';
+	import { deleteSoil, getAllSoils } from '$lib/api';
+	// import { SoilUpdateModal } from '$lib/components/organisms';
+	import { createEventDispatcher } from 'svelte';
+
 	export let soil;
 	export let description;
 	export let effect;
 	export let id;
 
+	let openModal = false;
+	const dispatch = createEventDispatcher();
+
 	const handleDelete = async () => {
-		try {
-			const result = await deleteSoil(id);
-			if (result.message === `Soil with ID: ${id} deleted successfully`) {
-				const updatedSoils = await getAllSoils();
-				soils.set(updatedSoils);
-			} else {
-				console.error('Error deleting soil');
-			}
-		} catch (error) {
-			console.error('Error deleting soil:', error);
+		const result = await deleteSoil(id);
+		if (result.message === `Soil with ID: ${id} deleted successfully`) {
+			await getAllSoils();
+			dispatch('deleteSoil', { status: 'success' });
+		} else {
+			console.error('Error deleting soil');
+			dispatch('deleteSoil', { status: 'error' });
 		}
 	};
 </script>
@@ -25,13 +27,18 @@
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
 		<h2 class="text-xl font-bold">{soil}</h2>
 		<hr class="mt-4 mb-4" />
-		<p class="mb-2"><span class="font-bold">Descripcció: </span>{description}</p>
+		<p class="mb-2"><span class="font-bold">Descripció: </span>{description}</p>
 		<p><span class="font-bold">Efecte: </span>{effect}</p>
 		<hr class="mt-4 mb-4" />
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
-				<button class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
-					><svg
+				<button
+					on:click={() => {
+						openModal = true;
+					}}
+					class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
+				>
+					<svg
 						class="w-4 h-4 text-white dark:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +61,8 @@
 				<button
 					on:click={handleDelete}
 					class="bg-delete-50 hover:bg-delete-100 text-white font-bold py-1 px-2 rounded"
-					><svg
+				>
+					<svg
 						class="w-4 h-4 text-white dark:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
@@ -76,3 +84,5 @@
 		</div>
 	</div>
 </div>
+<!-- 
+<SoilUpdateModal bind:openModal bind:soil bind:description bind:effect on:updateSoil {id} /> -->

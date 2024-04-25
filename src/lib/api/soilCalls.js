@@ -78,3 +78,31 @@ export async function deleteSoil(id) {
 		return { error: error.message, status: error.status };
 	}
 }
+
+/*
+ * Update soil
+ */
+
+export async function updateSoil(id, soil, description, effect) {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/soils/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ soil, description, effect })
+		});
+
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message, status: error.status };
+	}
+}

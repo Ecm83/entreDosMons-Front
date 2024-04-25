@@ -3,15 +3,15 @@
 	import { Modal } from 'flowbite-svelte';
 	import { CustomButton, Input } from '$lib/components/atoms';
 	import { addSupplier, getSuppliers } from '$lib/api';
-
 	import { onMount, createEventDispatcher } from 'svelte';
 
 	export let openModal = false;
 
 	let dispatch = createEventDispatcher();
 
-	$: companyName = '';
-	$: brandName = '';
+	$: newSupplier = '';
+	$: fiscalName = '';
+	$: NIF = '';
 	$: country = '';
 	$: city = '';
 	$: adress = '';
@@ -26,8 +26,9 @@
 	const handleCreateSupplier = async () => {
 		try {
 			const createdSupplier = await addSupplier(
-				companyName,
-				brandName,
+				newSupplier,
+				fiscalName,
+				NIF,
 				country,
 				city,
 				adress,
@@ -48,8 +49,9 @@
 			console.error('Error creating supplier');
 			dispatch('createSupplier', { status: 'error' });
 		} finally {
-			companyName = '';
-			brandName = '';
+			newSupplier = '';
+			fiscalName = '';
+			NIF = '';
 			country = '';
 			city = '';
 			adress = '';
@@ -69,24 +71,34 @@
 	});
 </script>
 
-<Modal title="Crear nou proveïdor" bind:open={openModal} size="lg" autoclose>
+<Modal title="Crear proveïdor" bind:open={openModal} size="xl" autoclose>
 	<div class="rounded-md p-3">
 		<div class="mb-4">
 			<Input
-				divId="companyName"
-				inputDescription="Introdueix el nom comercial"
+				divId="supplier"
+				inputDescription="Nom comercial"
 				inputType="text"
-				bind:inputValue={brandName}
+				bind:inputValue={newSupplier}
 				inputClass={'focus:border-black'}
 			/>
 		</div>
 
 		<div class="mb-4">
 			<Input
-				divId="brandName"
-				inputDescription="Introdueix la raó social"
+				divId="fiscalName"
+				inputDescription="Nom fiscal"
 				inputType="text"
-				bind:inputValue={companyName}
+				bind:inputValue={fiscalName}
+				inputClass={'focus:border-black'}
+			/>
+		</div>
+
+		<div class="mb-4">
+			<Input
+				divId="nif"
+				inputDescription="NIF"
+				inputType="text"
+				bind:inputValue={NIF}
 				inputClass={'focus:border-black'}
 			/>
 		</div>
@@ -94,7 +106,7 @@
 		<div class="mb-4">
 			<Input
 				divId="country"
-				inputDescription="Introdueix el país de l' empresa"
+				inputDescription="País de l'empresa"
 				inputType="text"
 				bind:inputValue={country}
 				inputClass={'focus:border-black'}
@@ -104,7 +116,7 @@
 		<div class="mb-4">
 			<Input
 				divId="city"
-				inputDescription="Introdueix la ciutat de l' empresa"
+				inputDescription="Ciutat de l'empresa"
 				inputType="text"
 				bind:inputValue={city}
 				inputClass={'focus:border-black'}
@@ -113,8 +125,8 @@
 
 		<div class="mb-4">
 			<Input
-				divId="address"
-				inputDescription="Introdueix l' adreça de l' empresa"
+				divId="adress"
+				inputDescription="Adreça de l'empresa"
 				inputType="text"
 				bind:inputValue={adress}
 				inputClass={'focus:border-black'}
@@ -124,7 +136,7 @@
 		<div class="mb-4">
 			<Input
 				divId="cp"
-				inputDescription="Códig postal de l' empresa"
+				inputDescription="CP"
 				inputType="text"
 				bind:inputValue={CP}
 				inputClass={'focus:border-black'}
@@ -133,8 +145,8 @@
 
 		<div class="mb-4">
 			<Input
-				divId="businessPhone"
-				inputDescription="Introdueix el telf de l' empresa"
+				divId="telf"
+				inputDescription="Telèfon"
 				inputType="text"
 				bind:inputValue={businessPhone}
 				inputClass={'focus:border-black'}
@@ -144,7 +156,7 @@
 		<div class="mb-4">
 			<Input
 				divId="contactName"
-				inputDescription="Introdueix la persona de contacte"
+				inputDescription="Nom de la persona de contacte"
 				inputType="text"
 				bind:inputValue={contactName}
 				inputClass={'focus:border-black'}
@@ -154,7 +166,7 @@
 		<div class="mb-4">
 			<Input
 				divId="contactPhone"
-				inputDescription="Introdueix el telf de contacte"
+				inputDescription="Telèfon de la persona de contacte"
 				inputType="text"
 				bind:inputValue={contactPhone}
 				inputClass={'focus:border-black'}
@@ -164,8 +176,8 @@
 		<div class="mb-4">
 			<Input
 				divId="businessEmail"
-				inputDescription="Introdueix l' email de l' empresa"
-				inputType="email"
+				inputDescription="Email"
+				inputType="text"
 				bind:inputValue={businessEmail}
 				inputClass={'focus:border-black'}
 			/>
@@ -174,12 +186,13 @@
 		<div class="mb-4">
 			<Input
 				divId="contactEmail"
-				inputDescription="Introdueix l' email del contacte"
-				inputType="email"
+				inputDescription="Email de la persona de contacte"
+				inputType="text"
 				bind:inputValue={contactEmail}
 				inputClass={'focus:border-black'}
 			/>
 		</div>
+
 		<div class="mb-4">
 			<VoiceRecognition
 				bind:textValue={description}

@@ -1,58 +1,31 @@
 <script>
-	import banderas from '$lib/banderas';
-	import { deleteCountry, getAllCountries } from '$lib/api/';
-	import { countries } from '$lib/stores';
-	import { onMount, createEventDispatcher } from 'svelte';
-	import { CountryUpdateModal } from '$lib/components/organisms';
-
-	export let country;
-	export let description;
-	export let id;
-
-	const dispatch = createEventDispatcher();
-
-	$: flag = banderas[country.toLowerCase()];
-
-	let openModal = false;
+	import { getLabels, deleteLabel } from '$lib/api';
+	import { labels } from '$lib/stores';
 
 	const handleDelete = async () => {
 		try {
-			const result = await deleteCountry(id);
-			if (result.error) {
-				console.error('Error deleting country:', result.error);
-				dispatch('deleteCountry', { status: 'error' });
+			const result = await deleteLabel(id);
+			if (result.message === `Label with ID: ${id} deleted successfully`) {
+				const updatedLabel = await getLabels();
+				labels.set(updatedLabel);
 			} else {
-				console.log('Country deleted successfully');
-				await getAllCountries();
-				dispatch('deleteCountry', { status: 'success' });
+				console.error('Error deleting label');
 			}
 		} catch (error) {
-			console.error('Error deleting country:', error);
-			dispatch('deleteCountry', { status: 'error' });
+			console.error('Error deleting label:', error);
 		}
 	};
 
-	onMount(async () => {
-		if (countries.length === 0) {
-			await getAllCountries();
-		}
-	});
+	export let name;
+	export let description;
+	export let id;
 </script>
 
 <div class="w-full" data-id={id}>
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
-		<div class="flex">
-			<div class="flag">
-				<img
-					class="h-16 object-fill object-center mb-4 aspect-video w-full border border-black rounded"
-					src={flag}
-					alt={country}
-				/>
-			</div>
-			<h2 class="text-xl font-bold mt-4 ml-4">{country}</h2>
-		</div>
+		<h2 class="text-xl font-bold">{name}</h2>
 		<hr class="mt-4 mb-4" />
-		<p>{description}</p>
+		<p class="mb-2"><span class="font-bold">Descripcció: </span>{description}</p>
 		<hr class="mt-4 mb-4" />
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
@@ -65,9 +38,6 @@
 						height="24"
 						fill="none"
 						viewBox="0 0 24 24"
-						on:click={() => {
-							openModal = true;
-						}}
 					>
 						<path
 							stroke="currentColor"
@@ -105,4 +75,3 @@
 		</div>
 	</div>
 </div>
-<CountryUpdateModal bind:openModal bind:country bind:description bind:id on:updateCountry />

@@ -2,11 +2,13 @@
 	import { deleteSupplier, getSuppliers } from '$lib/api';
 	import { createEventDispatcher } from 'svelte';
 	import { SupplierUpdateModal } from '$lib/components/organisms';
-	export let openModal = false;
+
+	let openModal = false;
 
 	export let id;
 	export let companyName;
-	export let brandName;
+	export let fiscalName;
+	export let NIF;
 	export let country;
 	export let city;
 	export let adress;
@@ -21,11 +23,15 @@
 	const dispatch = createEventDispatcher();
 
 	const handleDelete = async () => {
-		const result = await deleteSupplier(id);
-		if (result.message === `Supplier with ID: ${id} deleted successfully`) {
-			await getSuppliers();
-			dispatch('deleteSupplier', { status: 'success' });
-		} else {
+		try {
+			const result = await deleteSupplier(id);
+			if (result.message === `Supplier with ID: ${id} deleted successfully`) {
+				await getSuppliers();
+				dispatch('deleteSupplier', { status: 'success' });
+			} else {
+				console.error('Error deleting supplier');
+			}
+		} catch (error) {
 			console.error('Error deleting supplier');
 			dispatch('deleteSupplier', { status: 'error' });
 		}
@@ -34,79 +40,44 @@
 
 <div class="w-full" data-id={id}>
 	<div class="bg-white rounded-lg shadow-lg p-3 hover:bg-secondary-50/5 transition-all">
-		<!--* Business Details -->
+		<div class="flex justify-between p-2">
+			<div>
+				<h2 class="text-xl font-bold">{companyName}</h2>
+				<h3><span class="font-semibold">Nom fiscal:</span> {fiscalName}</h3>
+				<h3><span class="font-semibold">NIF:</span> {NIF}</h3>
+			</div>
 
-		<h2>Nom Comercial:</h2>
-		<h4 class="text-xl font-bold">{companyName}</h4>
-
-		<div class="flex justify-between">
-			<h2>{brandName}</h2>
-			<p class="text-secondary-100 font-black">NIF: sdfsdfdsfsdfs fg</p>
+			<div>
+				<h3><span class="font-semibold">Adreça: </span> {adress}</h3>
+				<h3><span class="font-semibold">CP:</span> {CP}</h3>
+				<h3><span class="font-semibold">Ciutat:</span> {city}</h3>
+				<h3><span class="font-semibold">País:</span> {country}</h3>
+			</div>
 		</div>
 
 		<hr class="mt-4 mb-4" />
 
-		<!--* Ubication Details -->
+		<h3 class="text-center font-bold">Contactes</h3>
+		<div class="flex justify-between p-2">
+			<div>
+				<h3 class="font-semibold">Empresa:</h3>
+				<h3><span class="font-semibold">Telf empresa: </span>{businessPhone}</h3>
+				<h3><span class="font-semibold">Email empresa: </span>{businessEmail}</h3>
+			</div>
 
-		<h3 class="text-center mb-4 text-lg">Ubicació</h3>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">Adreça:</p>
-			<p>{adress}</p>
-		</div>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">Códig Postal:</p>
-			<p>{CP}</p>
-		</div>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">Ciutat:</p>
-			<p>{city}</p>
-		</div>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">País:</p>
-			<p>{country}</p>
+			<div>
+				<h3 class="font-semibold">Persona:</h3>
+				<h3><span class="font-semibold">Nom contacte: </span>{contactName}</h3>
+				<h3><span class="font-semibold">Telf contacte:</span>{contactPhone}</h3>
+				<h3><span class="font-semibold">Email contacte:</span>{contactEmail}</h3>
+			</div>
 		</div>
 
 		<hr class="mt-4 mb-4" />
 
-		<!--* Contact Details -->
-
-		<h3 class="text-center mb-4 text-lg">Contacte:</h3>
-		<div class="flex">
-			<p class="mr-4 font-semibold">Tef de l'empresa:</p>
-			<p>{businessPhone}</p>
-		</div>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">Email de l'empresa:</p>
-			<p>{businessEmail}</p>
-		</div>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">Nom del contacte:</p>
-			<p>{contactName}</p>
-		</div>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">Telf del contacte:</p>
-			<p>{contactPhone}</p>
-		</div>
-
-		<div class="flex">
-			<p class="mr-4 font-semibold">Email del contacte:</p>
-			<p>{contactEmail}</p>
-		</div>
-
-		<hr class="mt-4 mb-4" />
-
-		<h4 class="mr-4 font-semibold">Descripció:</h4>
-
+		<h3 class="text-center font-bold mb-3">Descripció</h3>
 		<p>{description}</p>
 		<hr class="mt-4 mb-4" />
-
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
 				<button
@@ -161,9 +132,11 @@
 </div>
 
 <SupplierUpdateModal
+	{id}
 	bind:openModal
 	bind:companyName
-	bind:brandName
+	bind:fiscalName
+	bind:NIF
 	bind:country
 	bind:city
 	bind:adress
@@ -175,5 +148,4 @@
 	bind:contactEmail
 	bind:description
 	on:updateSupplier
-	{id}
 />

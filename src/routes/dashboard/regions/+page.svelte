@@ -1,42 +1,44 @@
 <script>
 	import { onMount } from 'svelte';
-	import { getAllRegions, getAllCountries, addRegion } from '$lib/api';
+	import { getAllRegions, getAllCountries } from '$lib/api';
 	import { countries, regions } from '$lib/stores';
-	import { Button, Modal } from 'flowbite-svelte';
 	import { RegionCard } from '$lib/components/organisms';
-	import { CustomTextArea, SelectInput, CustomButton, Input } from '$lib/components/atoms';
+	import { CustomButton, UserAlert } from '$lib/components/atoms';
+	import { RegionCreateModal } from '$lib/components/organisms';
 
 	let openModal = false;
-	let size;
 
 	let regionsData = [];
 	let countriesData = [];
 
 	$: $regions, (regionsData = $regions);
 	$: $countries, (countriesData = $countries);
-	$: newRegion = '';
-	$: description = '';
-	$: countryId = '';
 
-	$: countriesName = countriesData.map((country) => {
-		return {
-			name: country.country,
-			value: country.id
-		};
-	});
+	let showAlert = false;
+	let alertColor = '';
+	let alertType = '';
+	let alertText = '';
 
-	const handleCreateRegion = async () => {
-		console.log('log de countryId:', countryId);
-		const createdRegion = await addRegion(newRegion, description, parseInt(countryId));
-		console.log('log de createdRegion', createdRegion);
-		if (createdRegion.message === 'Region created successfully') {
-			await getAllRegions();
-		} else {
-			console.error('Error creating region');
-		}
-		newRegion = '';
-		description = '';
-		countryId = '';
+	const handleCreate = (e) => {
+		showAlert = true;
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success' ? 'Nova regió creada' : `No s'ha pogut crear la regió.`;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
+	};
+
+	const handleDelete = (e) => {
+		showAlert = true;
+		alertColor = e.detail.status === 'success' ? 'green' : 'red';
+		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
+		alertText =
+			e.detail.status === 'success' ? 'Regió eliminada' : `No s'ha pogut eliminar la regió.`;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
 	};
 
 	$: onMount(async () => {
@@ -51,13 +53,16 @@
 	});
 </script>
 
+{#if showAlert}
+	<UserAlert color={alertColor} infoAlert={alertType} infoText={alertText} />
+{/if}
+
 <div class="container mx-auto p-4 rounded-lg w-full">
 	<h1 class="heading flex items-center gap-4">
 		Regions <CustomButton
 			buttonText={'Crea nova regió'}
 			btnClasses={' text-base focus:ring-0 transition-transform hover:text-secondary hover:bg-secondary-50/80 hover:text-white'}
 			handleClick={() => {
-				size = 'xs';
 				openModal = true;
 			}}
 		/>
@@ -80,49 +85,11 @@
 					id={region.id}
 					description={region.description}
 					regionCountries={region.country.country}
+					on:deleteRegion={handleDelete}
 				/>
 			{/each}
 		</div>
 	{/if}
 </div>
 
-<Modal title="Crear nou país" bind:open={openModal} {size} autoclose>
-	<div class="rounded-md p-3">
-		<div class="mb-4">
-			<SelectInput
-				placeholder="Selecciona un país"
-				items={countriesName}
-				id="countrySelect"
-				bind:selected={countryId}
-			/>
-
-			<Input
-				divId="region"
-				inputDescription="Introdueix un regió"
-				inputType="text"
-				placeholder="Introdueix una regió"
-				bind:inputValue={newRegion}
-			/>
-		</div>
-		<div class="mb-4">
-			<CustomTextArea
-				forLbl="region"
-				lblTxt=""
-				id="description"
-				placeholder="Introdueix una drecripció de la regió"
-				name="country"
-				bind:txtValue={description}
-			/>
-		</div>
-	</div>
-	<svelte:fragment slot="footer">
-		<Button
-			class={'text-white w-48 bg-ok-50 hover:bg-ok-100  m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0 hover:scale-50 transition-transform color-white'}
-			on:click={handleCreateRegion}>Crea</Button
-		>
-		<Button
-			class="text-white bg-delete-50 hover:bg-delete-100 m-0 text-basehover:shadow-custom focus:outline-none focus:ring-0 border-0
-			hover:scale-50 transition-transform color-white">Cancel·la</Button
-		>
-	</svelte:fragment>
-</Modal>
+<RegionCreateModal bind:openModal on:createRegion={handleCreate} />

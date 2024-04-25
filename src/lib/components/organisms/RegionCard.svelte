@@ -1,20 +1,28 @@
 <script>
 	import { deleteRegion, getAllRegions } from '$lib/api/regionsCalls';
 	import banderas from '$lib/banderas';
-	export let region;
+	import { createEventDispatcher } from 'svelte';
+
 	export let id;
 	export let description;
+	export let region;
 	export let regionCountries;
 
 	let flag;
+	let openModal = false;
+
 	flag = banderas[regionCountries.toLowerCase()];
+
+	const dispatch = createEventDispatcher();
 
 	const handleDelete = async () => {
 		const result = await deleteRegion(id);
 		if (result.message === `Region with ID: ${id} deleted successfully`) {
 			await getAllRegions();
+			dispatch('deleteRegion', { status: 'success' });
 		} else {
 			console.error('Error deleting region');
+			dispatch('deleteRegion', { status: 'error' });
 		}
 	};
 </script>
@@ -36,7 +44,11 @@
 		<hr class="mt-4 mb-4" />
 		<div class="flex gap-3 mt-2 justify-end">
 			<div class="edit">
-				<button class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
+				<button
+					on:click={() => {
+						!openModal;
+					}}
+					class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
 					><svg
 						class="w-4 h-4 text-white dark:text-white"
 						aria-hidden="true"

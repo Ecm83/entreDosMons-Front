@@ -1,7 +1,5 @@
 <script>
-	import CustomButton from '$lib/components/CustomButton.svelte';
-	import Form from '$lib/components/Form.svelte';
-	import Input from '../../lib/components/Input.svelte';
+	import { Input, CustomButton, Form } from '$lib/components/atoms';
 	import { login } from '$lib/api/apiCalls.js';
 	import { user } from '$lib/stores/user.js';
 	import { goto } from '$app/navigation';

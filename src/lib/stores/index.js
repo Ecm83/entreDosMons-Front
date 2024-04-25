@@ -7,3 +7,4 @@ export { sulphites } from './sulphites';
 export { cellars } from './cellars';
 export { wineTypes } from './wineTypes';
 export { suppliers } from './suppliers';
+export { labels } from './labels';
