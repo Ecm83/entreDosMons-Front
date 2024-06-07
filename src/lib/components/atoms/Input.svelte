@@ -13,7 +13,7 @@
 	export let inputDescription;
 	export let inputType = 'text' || 'email' || 'password' || 'number' || 'tel' || 'url';
 	export let inputValue;
-	export let inputClass = 'focus:border-black w-full';
+	export let inputClass = 'focus:ring-0  focus:border-primary-50 focus:border-[1.5px]';
 </script>
 
 <div id={divId} class="grid gap-6 items-end w-full">

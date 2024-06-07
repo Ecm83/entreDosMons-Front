@@ -14,9 +14,8 @@
 </script>
 
 <div class="container mx-auto">
-	<!-- <h1>DASHBOARD PAGE MAIN</h1> -->
 	<div class="flex gap-4">
-		<div class="">
+		<div class="overflow-y-auto overflow-x-hidden max-h-screen">
 			<Sidebar {activeUrl}>
 				<SidebarWrapper>
 					<SidebarGroup>
@@ -29,13 +28,16 @@
 						<SidebarItem label="Cellers" href="/dashboard/cellars"></SidebarItem>
 						<SidebarItem label="Sòls" href="/dashboard/soils"></SidebarItem>
 						<SidebarItem label="Sulfits" href="/dashboard/sulphites"></SidebarItem>
+						<SidebarItem label="Icones" href="/dashboard/icons"></SidebarItem>
 						<SidebarItem label="Característiques " href="/dashboard/labels"></SidebarItem>
 						<SidebarItem label="Vins" href="/dashboard/wines"></SidebarItem>
 						<SidebarItem label="Stock" href="/dashboard/stock"></SidebarItem>
+						<SidebarItem label="Prices" href="/dashboard/price"></SidebarItem>
 					</SidebarGroup>
 				</SidebarWrapper>
 			</Sidebar>
 		</div>
+
 		<div class="w-full">
 			<div class="flex flex-wrap mx-2">
 				<slot />

@@ -22,8 +22,8 @@
 		alertType = e.detail.status === 'success' ? 'Èxit' : 'Error';
 		alertText =
 			e.detail.status === 'success'
-				? 'Nou tipus de vi creat'
-				: `No s'ha pogut crear el tipus de vi.`;
+				? 'Nou tipus de vi acrualitzat.'
+				: `No s'ha pogut actualitzar el tipus de vi.`;
 		setTimeout(() => {
 			showAlert = false;
 		}, 3000);

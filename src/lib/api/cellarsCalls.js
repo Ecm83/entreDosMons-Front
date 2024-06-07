@@ -48,16 +48,16 @@ export async function deleteCellar(id) {
 	}
 }
 /*
- *Create a cellar
+ *Create cellar
  */
-export async function createCellar(cellar, description, distance, regionId) {
+export async function createCellar(cellar, description, distance, regionId, supplierId) {
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/cellars`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(cellar, description, distance, regionId)
+			body: JSON.stringify(cellar, description, distance, regionId, supplierId)
 		});
 
 		const { ok, status } = response;

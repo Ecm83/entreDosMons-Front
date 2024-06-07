@@ -84,7 +84,7 @@
 					region={region.region}
 					id={region.id}
 					description={region.description}
-					regionCountries={region.country.country}
+					regionCountries={region.countries.country}
 					on:deleteRegion={handleDelete}
 				/>
 			{/each}

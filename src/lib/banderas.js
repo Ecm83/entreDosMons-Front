@@ -305,5 +305,9 @@ export default {
 	zàmbia:
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Flag_of_Zambia.svg/540px-Flag_of_Zambia.svg.png',
 	filipines:
-		'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_the_Philippines.svg/540px-Flag_of_the_Philippines.svg.png'
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_the_Philippines.svg/540px-Flag_of_the_Philippines.svg.png',
+	zimbabwe:
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Flag_of_Zimbabwe.svg/540px-Flag_of_Zimbabwe.svg.png',
+	catalunya:
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/1280px-Flag_of_Catalonia.svg.png'
 };

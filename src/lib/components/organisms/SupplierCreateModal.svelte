@@ -196,7 +196,7 @@
 		<div class="mb-4">
 			<VoiceRecognition
 				bind:textValue={description}
-				placeholder="Introdueix una descripció del raïm"
+				placeholder="Introdueix una descripció del proveïdor"
 				lblSpech="Descripció del raïm"
 			/>
 		</div>
