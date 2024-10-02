@@ -1,6 +1,6 @@
 export default {
 	frança:
-		'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%29.svg/540px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%29.svg.png',
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg/383px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg.png',
 	espanya:
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/540px-Flag_of_Spain.svg.png',
 	alemanya:
@@ -18,8 +18,8 @@ export default {
 	argentina:
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/540px-Flag_of_Argentina.svg.png',
 	xile: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Flag_of_Chile.svg/540px-Flag_of_Chile.svg.png',
-	'sud-àfrica':
-		'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/540px-Flag_of_South_Africa.svg.png',
+	'sud àfrica':
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/1280px-Flag_of_South_Africa.svg.png',
 	'nova zelanda':
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/540px-Flag_of_New_Zealand.svg.png',
 	àustria:
