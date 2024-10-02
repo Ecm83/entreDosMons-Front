@@ -82,3 +82,31 @@ export const addRegion = async (region, description, countryId) => {
 		return { error: error.message, status: error.status };
 	}
 };
+
+// Update region
+export const updateRegion = async (id, region, description, countryId) => {
+	try {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/regions/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ region, countryId, description })
+		});
+
+		const { ok, status } = response;
+
+		if (!ok) {
+			throw new Error(`HTTP error! status: ${status}`);
+		}
+
+		const data = await response.json();
+		console.log(data);
+
+		getAllRegions();
+		return data;
+	} catch (error) {
+		console.error(error);
+		return { error: error.message, status: error.status };
+	}
+};
