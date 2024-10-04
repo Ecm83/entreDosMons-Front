@@ -8,3 +8,4 @@ export * from './wineTypesCalls.js';
 export * from './cellarsCalls.js';
 export * from './suppliersCalls.js';
 export * from './labelsCalls.js';
+export * from './labelsCalls.js';
