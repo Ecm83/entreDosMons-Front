@@ -83,6 +83,7 @@
 				<RegionCard
 					region={region.region}
 					id={region.id}
+					countyId={region.countryId}
 					description={region.description}
 					regionCountries={region.country.country}
 					on:deleteRegion={handleDelete}

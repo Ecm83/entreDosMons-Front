@@ -2,11 +2,13 @@
 	import { deleteRegion, getAllRegions } from '$lib/api/regionsCalls';
 	import banderas from '$lib/banderas';
 	import { createEventDispatcher } from 'svelte';
+	import { RegionUpdateModal } from '$lib/components/organisms';
 
 	export let id;
 	export let description;
 	export let region;
 	export let regionCountries;
+	export let countryId;
 
 	let flag;
 	let openModal = false;
@@ -46,7 +48,7 @@
 			<div class="edit">
 				<button
 					on:click={() => {
-						!openModal;
+						openModal = true;
 					}}
 					class="bg-ok-50 hover:bg-ok-100 text-white font-bold py-1 px-2 rounded"
 					><svg
@@ -94,3 +96,4 @@
 		</div>
 	</div>
 </div>
+<RegionUpdateModal bind:openModal {region} {description} {id} {countryId} />

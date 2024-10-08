@@ -30,6 +30,7 @@ export { default as WineTypesUpdateModal } from './WineTypesUpdateModal.svelte';
 export { default as CountryUpdateModal } from './CountryUpdateModal.svelte';
 export { default as SulphitesUpdateModal } from './SulphitesUpdateModal.svelte';
 export { default as SupplierUpdateModal } from './SupplierUpdateModal.svelte';
+export { default as RegionUpdateModal } from './RegionUpdateModal.svelte';
 
 /**
  * * Navigation Components

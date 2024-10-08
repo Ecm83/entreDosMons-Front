@@ -32,6 +32,7 @@
 						<SidebarItem label="Característiques " href="/dashboard/labels"></SidebarItem>
 						<SidebarItem label="Vins" href="/dashboard/wines"></SidebarItem>
 						<SidebarItem label="Stock" href="/dashboard/stock"></SidebarItem>
+						<SidebarItem label="Anyada" href="/dashboard/vintages"></SidebarItem>
 					</SidebarGroup>
 				</SidebarWrapper>
 			</Sidebar>
