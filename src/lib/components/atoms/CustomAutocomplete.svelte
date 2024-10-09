@@ -1,5 +1,5 @@
 <script>
-	import { AutoComplete } from 'simple-svelte-autocomplete';
+	import AutoComplete from 'simple-svelte-autocomplete';
 
 	export let items; // add this line
 	export let selectedItem;

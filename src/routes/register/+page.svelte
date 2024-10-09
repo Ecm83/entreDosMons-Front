@@ -1,8 +1,6 @@
 <script>
-	import CustomButton from '../../components/CustomButton.svelte';
-	import Form from '../../components/Form.svelte';
-	import Input from '../../components/Input.svelte';
-	import { register } from '../../api/apiCalls';
+	import { CustomButton, Form, Input } from '$lib/components/atoms';
+	import { register } from '$lib/api/apiCalls';
 
 	let inputNameValue = '';
 	let inputSurnameValue = '';
