@@ -7,9 +7,10 @@
 	 * @param {function} handleClick - The function to execute when the button is clicked
 	 
 	*/
-	export let buttonText;
-	export let btnClasses;
-	export let handleClick;
+	// export let buttonText;
+	// export let btnClasses;
+	// export let handleClick;
 </script>
 
-<Button outline on:click={handleClick} class={btnClasses}>{buttonText}</Button>
+<!-- <Button on:click={handleClick} class={btnClasses}>{buttonText}</Button> -->
+<Button color={'red'}>Dark</Button>
