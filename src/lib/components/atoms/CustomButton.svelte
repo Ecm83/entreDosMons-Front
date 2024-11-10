@@ -1,16 +1,15 @@
 <script>
-	import { Button } from 'flowbite-svelte';
-
 	/**
 	 * @param {string} buttonText - The text of the button
 	 * @param {string} btnClasses - The classes of the button
 	 * @param {function} handleClick - The function to execute when the button is clicked
 	 
 	*/
-	// export let buttonText;
-	// export let btnClasses;
-	// export let handleClick;
+	export let text = 'Click me';
+	export let customClass = '';
+	export let handleClick = () => {
+		console.log('Button clicked');
+	};
 </script>
 
-<!-- <Button on:click={handleClick} class={btnClasses}>{buttonText}</Button> -->
-<Button color={'red'}>Dark</Button>
+<button class={customClass} on:click={handleClick}>{text}</button>
